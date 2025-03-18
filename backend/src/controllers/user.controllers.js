@@ -61,7 +61,7 @@ export const registerUser = async (req, res) => {
       message: "User registered successfully",
     })
   } catch (error) {
-    console.error("error when registering new user: ", error);
+    console.error("error registering new user: ", error);
     return res.status(500).json({
       success: false,
       message: "user registration failed",
@@ -71,7 +71,44 @@ export const registerUser = async (req, res) => {
 };
 
 // @login route
-export const loginUser = async (req, res) => {};
+export const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body
+  
+    const user = await UserModel.findOne({email})
+  
+    if(!user) {
+      return res.status(400).json({
+        success: false,
+        message: "User doesn't exists",
+      });
+    }
+  
+    const isMatch = await bcrypt.compare(password, user.password)
+  
+    if(isMatch) {
+      const token = createToken((user._id))
+      return res.status(200).json({
+        success: true,
+        data: token,
+        message: "User login successfully",
+      })
+    }else {
+      return res.status(401)
+      .json({
+        success: false,
+        message: "Invalid credentials"
+      })
+    }
+  } catch (error) {
+    console.error("error login user: ", error);
+    return res.status(500).json({
+      success: false,
+      message: "user login failed",
+      error: error.message,
+    });
+  }
+};
 
 // @admin route
 export const adminLogin = async (req, res) => {};
