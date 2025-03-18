@@ -1,4 +1,4 @@
-import mongoose, { mongo, Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema(
   {
@@ -22,7 +22,9 @@ const userSchema = new Schema(
   },
   {
     minimize: false,
-  }
+    timestamps: true
+
+  },
 );
 
 export const UserModel = mongoose.model("User", userSchema)
