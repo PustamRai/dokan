@@ -1,7 +1,8 @@
 
+
 // functions for add product
 export const addProduct = (req, res) => {
-
+    
 }
 
 // functions for list product

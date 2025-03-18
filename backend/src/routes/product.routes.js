@@ -1,10 +1,10 @@
-import { Router } from express
+import { Router } from "express"
 import { 
     addProduct, 
     listProducts, 
     removeProduct, 
     singleProduct 
-} from "../controllers/product.controllers"
+} from "../controllers/product.controllers.js"
 
 const productRouter = Router()
 
