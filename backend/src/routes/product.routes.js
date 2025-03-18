@@ -1,4 +1,5 @@
 import { Router } from "express"
+import { upload } from "../middlewares/multer.middlewares.js"
 import { 
     addProduct, 
     listProducts, 
@@ -9,7 +10,7 @@ import {
 const productRouter = Router()
 
 productRouter.get("/list", listProducts)
-productRouter.post("/add", addProduct)
+productRouter.post("/add",upload.single("image"), addProduct)
 productRouter.post("/remove", removeProduct)
 productRouter.post("/single", singleProduct)
 
