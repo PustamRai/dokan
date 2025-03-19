@@ -11,7 +11,7 @@ const productRouter = Router()
 
 productRouter.get("/list", listProducts)
 productRouter.post("/add",upload.single("image"), addProduct)
-productRouter.post("/remove", removeProduct)
-productRouter.post("/single", singleProduct)
+productRouter.post("/remove/:productId", removeProduct)
+productRouter.post("/single/:productId", singleProduct)
 
 export default productRouter

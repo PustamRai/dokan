@@ -92,10 +92,60 @@ export const listProducts = async (req, res) => {
 
 // functions for removing product
 export const removeProduct = async (req, res) => {
+  try {
+    const { productId } = req.params
 
+    const product = await ProductModel.findById(productId)
+    if(!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    const remove = await ProductModel.findByIdAndDelete(product)
+
+    res.status(200)
+    .json({
+      success: true,
+      data: remove,
+      message: "product removed successfully"
+    })
+  } catch (error) {
+    console.error("failed to remove product: ", error);
+    return res.status(500).json({
+      success: false,
+      message: "failed to remove product",
+      error: error.message,
+    });
+  }
 }
 
 // functions for single product
 export const singleProduct = async (req, res) => {
+  try {
+    const { productId } = req.params;
 
-}
+    const product = await ProductModel.findById(productId);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: product,
+      message: "Single product retrieved successfully",
+    });
+
+  } catch (error) {
+    console.error("Failed to fetch the product:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+};
