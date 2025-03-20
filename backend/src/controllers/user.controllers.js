@@ -4,7 +4,10 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const createToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET);
+  return jwt.sign(
+    { id }, 
+    process.env.JWT_SECRET
+  );
 };
 
 // @register route
@@ -88,6 +91,7 @@ export const loginUser = async (req, res) => {
   
     if(isMatch) {
       const token = createToken((user._id))
+
       return res.status(200).json({
         success: true,
         data: token,
@@ -111,4 +115,34 @@ export const loginUser = async (req, res) => {
 };
 
 // @admin route
-export const adminLogin = async (req, res) => {};
+export const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+      const token = jwt.sign(
+        { email, role: "admin" }, 
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" } 
+      )
+
+      return res.status(200).json({
+        success: true,
+        data: token,
+        message: "Admin logged in successfully",
+      });
+    } else {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+  } catch (error) {
+    console.error("Admin login failed:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Admin login failed",
+      error: error.message,
+    });
+  }
+};
