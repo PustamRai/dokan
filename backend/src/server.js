@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import { connectDB } from "./config/db.js";
 import userRouter from "./routes/user.routes.js";
 import productRouter from "./routes/product.routes.js";
+import cartRouter from "./routes/cart.routes.js";
 
 dotenv.config();
 
@@ -27,6 +28,8 @@ app.use(express.json())
 // api endpoints
 app.use("/api/user", userRouter)
 app.use("/api/product", productRouter)
+app.use("/api/cart", cartRouter)
+
 
 
 app.get("/", (req, res) => {
