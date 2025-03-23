@@ -78,32 +78,44 @@ export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body
   
-    const user = await UserModel.findOne({email})
+    const user = await UserModel.findOne({ email })
   
     if(!user) {
-      return res.status(400).json({
+      return res.status(401).json({
         success: false,
         message: "User doesn't exists",
       });
     }
-  
-    const isMatch = await bcrypt.compare(password, user.password)
-  
-    if(isMatch) {
-      const token = createToken((user._id))
 
-      return res.status(200).json({
-        success: true,
-        data: token,
-        message: "User login successfully",
-      })
-    }else {
+    if (!password) {
+      return res.status(400).json({
+        success: false,
+        message: "Password is required",
+      });
+    }
+  
+    // compare password
+    const isMatch = await bcrypt.compare(password, user.password)
+    if(!isMatch) {
       return res.status(401)
       .json({
         success: false,
         message: "Invalid credentials"
       })
     }
+
+    const token = createToken(user._id)
+
+    const loggedInUser = await UserModel.findById(user._id).select("-password")
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        token,
+        loggedInUser
+      },
+      message: "User login successfully",
+    })
   } catch (error) {
     console.error("error login user: ", error);
     return res.status(500).json({
