@@ -85,7 +85,22 @@ export const addToCart = async (req, res) => {
 // update user cart
 export const updateCart = async (req, res) => {
     try {
-        const { userId, itemId, size, quantity } = req.body;
+        const { itemId, size, quantity } = req.body;
+        const userId = req.user._id
+
+        if (!itemId || !size || quantity === undefined) {
+            return res.status(400).json({
+                success: false,
+                message: "Item ID, size, and quantity are required",
+            });
+        }
+
+        if (quantity < 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Quantity cannot be negative",
+            });
+        }
 
         // Fetch user data
         const userData = await UserModel.findById(userId);
@@ -107,16 +122,17 @@ export const updateCart = async (req, res) => {
         cartData[itemId][size] = quantity;
 
         // Save updated cart data
-        await UserModel.findByIdAndUpdate(
+        const updatedUser = await UserModel.findByIdAndUpdate(
             userId, 
             { 
                 $set: { cartData } 
-            }
+            },
+            { new: true}
         )
 
         return res.status(200).json({
             success: true,
-            data: cartData,
+            data: updatedUser.cartData,
             message: "Cart updated successfully",
         });
 
