@@ -4,7 +4,7 @@ import { UserModel } from "../models/user.models.js"
 // get user cart data
 export const getUserCart = async (req, res) => {
     try {
-        const { userId } = req.body
+        const userId = req.user._id
         
         const userData = await UserModel.findById(userId)
         if (!userData) {
@@ -14,7 +14,7 @@ export const getUserCart = async (req, res) => {
             });
         }
 
-        let cartData = await userData.cartData
+        let cartData = await userData.cartData || {} // ensure cartData is object
 
         return res.status(200).json({
             success: true,
@@ -25,7 +25,7 @@ export const getUserCart = async (req, res) => {
         console.error("Failed to fetched cart:", error);
         return res.status(500).json({
             success: false,
-            message: "Failed to fetched cart",
+            message: "Failed to fetch cart",
             error: error.message,
         });
     }
