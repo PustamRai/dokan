@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken"
 
 export const adminAuth = (req, res, next) => {
     try {
-        const { token } = req.headers
+        const token = req?.headers?.authorization
         if(!token) {
             return res.status(401).json({
                 success: false,
@@ -11,6 +11,7 @@ export const adminAuth = (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        // console.log("token value: ", decoded)
         if(decoded.role !== "admin") {
             return res.status(403)
             .json({ 

@@ -3,9 +3,9 @@ import validator from "validator"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const createToken = (id) => {
+const createToken = (_id) => {
   return jwt.sign(
-    { id }, 
+    { _id }, 
     process.env.JWT_SECRET,
     { expiresIn: "3h" }
   );
@@ -61,7 +61,10 @@ export const registerUser = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      data: token,
+      data: {
+        user,
+        token
+      },
       message: "User registered successfully",
     })
   } catch (error) {
@@ -112,8 +115,7 @@ export const loginUser = async (req, res) => {
     return res.status(200).json({
       success: true,
       data: {
-        token,
-        loggedInUser
+        user: loggedInUser, token
       },
       message: "User login successfully",
     })

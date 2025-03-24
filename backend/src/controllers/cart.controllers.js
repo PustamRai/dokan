@@ -34,7 +34,10 @@ export const getUserCart = async (req, res) => {
 // add product to user cart
 export const addToCart = async (req, res) => {
     try {
-        const { userId, itemId, size } = req.body
+        const { itemId, size } = req.body
+        const userId = req.user._id
+        
+        console.log("user id: ", userId)
     
         const userData = await UserModel.findById(userId)
         if (!userData) {
@@ -44,30 +47,29 @@ export const addToCart = async (req, res) => {
             });
         }
 
-        let cartData = await userData.cartData
+        let cartData = userData.cartData || {}; // Ensure cartData exists
     
-        // Check if item exists in cart
-        if(cartData[itemId]) {
-            if(cartData[itemId][size]) {
-                cartData += 1 // Increase quantity
-            }
-            else {
-                cartData[itemId][size] = 1 // Add new size with quantity 1
-            }
-        } else {
-            cartData[itemId] = {} // Create new item entry
-            cartData[itemId][size]
+        // Check if item already exists in cart
+        if (!cartData[itemId]) {
+            cartData[itemId] = {}; // Initialize item
         }
-    
+
+        if (!cartData[itemId][size]) {
+            cartData[itemId][size] = 1; // Initialize quantity
+        } else {
+            cartData[itemId][size] += 1; // Increase quantity
+        }
+
         // Update user's cart in the database
-        await UserModel.findByIdAndUpdate(
+        const updatedUser = await UserModel.findByIdAndUpdate(
             userId,
-            {cartData}
-        )
-    
+            { $set: { cartData } }, // Use $set to update only cartData
+            { new: true } // Return updated document
+        );
+
         return res.status(200).json({
             success: true,
-            data: cartData,
+            data: updatedUser.cartData,
             message: "Added to cart successfully",
         });
     } catch (error) {
