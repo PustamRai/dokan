@@ -15,7 +15,7 @@ import PageNotFound from "./pages/PageNotFound"
 
 function App() {
   return (
-    <div className="bg-gray-200 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+    <div className="bg-gray-200">
       <Router>
         <Routes>
           <Route path="/" element={ <Layout /> }>
