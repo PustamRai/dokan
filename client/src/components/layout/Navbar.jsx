@@ -89,7 +89,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-1 hover:text-gray-500 transition-colors"
+          className="md:hidden p-1 hover:text-gray-500 transition-colors cursor-pointer"
           onClick={toggleMenu}
         >
           {isMenuOpen ? <BiX size={24} /> : <BiMenu size={24} />}
@@ -100,28 +100,44 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden absolute top-16 left-0 right-0 bg-gray-200 shadow-md py-4 px-6 z-50">
           <div className="flex flex-col space-y-4">
-            <NavLink to="/" className="flex flex-col items-center">
+            <NavLink 
+            to="/" 
+            className="flex flex-col items-center" 
+            onClick={() => setIsMenuOpen(false)}
+            >
               <p className="text-sm uppercase hover:text-gray-500 transition-colors">
                 Home
               </p>
               <hr className="w-5 border-none h-[1.5px] bg-gray-700 hidden" />
             </NavLink>
 
-            <NavLink to="/about" className="flex flex-col items-center">
+            <NavLink 
+            to="/about" 
+            className="flex flex-col items-center" 
+            onClick={() => setIsMenuOpen(false)}
+            >
               <p className="text-sm uppercase hover:text-gray-500 transition-colors">
                 About
               </p>
               <hr className="w-5 border-none h-[1.5px] bg-gray-700 hidden" />
             </NavLink>
 
-            <NavLink to="/collection" className="flex flex-col items-center">
+            <NavLink 
+            to="/collection" 
+            className="flex flex-col items-center" 
+            onClick={() => setIsMenuOpen(false)}
+            >
               <p className="text-sm uppercase hover:text-gray-500 transition-colors">
                 Collection
               </p>
               <hr className="w-5 border-none h-[1.5px] bg-gray-700 hidden" />
             </NavLink>
 
-            <NavLink to="/contact" className="flex flex-col items-center">
+            <NavLink 
+            to="/contact" 
+            className="flex flex-col items-center"
+            onClick={() => setIsMenuOpen(false)}
+            >
               <p className="text-sm uppercase hover:text-gray-500 transition-colors">
                 Contact
               </p>
