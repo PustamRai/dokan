@@ -12,11 +12,15 @@ const Navbar = () => {
   return (
     <nav className="w-full py-4 px-3 md:px-32 flex items-center justify-between bg-gray-50 shadow-sm">
       {/* Logo */}
+      <NavLink
+      to="/"
+      >
       <div className="flex items-center">
         <h1 className="text-xl font-bold">
           DOKAN<span className="text-gray-400">.</span>
         </h1>
       </div>
+      </NavLink>
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center space-x-8">
