@@ -14,7 +14,7 @@ function ProductItem({ id, image, description, price }) {
   // }
 
   return (
-    <div className="bg-white rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+    <div className="bg-white rounded-xs overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <Link to={`/product/${id}`}>
         <div className="overflow-hidden">
           <img
