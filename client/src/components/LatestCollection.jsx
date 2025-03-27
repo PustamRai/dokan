@@ -6,8 +6,6 @@ function LatestCollection() {
   const { products } = useProductContext();
   const [latestProducts, setLatestProducts] = useState([]);
 
-  console.log("latest prod: ", latestProducts)
-
   useEffect(() => {
     setLatestProducts(products.slice(0, 6));
   }, [products]);

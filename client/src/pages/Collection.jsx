@@ -1,10 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useProductContext } from "../context/productContext";
 import ProductItem from "../components/ProductItem";
 
 function Collection() {
-  const { products } = useProductContext();
+  const { products, loading } = useProductContext();
   const [showFilter, setShowFilter] = useState(false);
+  const [filterProducts, setFilterProducts] = useState([])
+  const [category, setCategory] = useState([])
+  const [sortedProducts, setSortedProducts] = useState([]);
+  const [sortOption, setSortOption] = useState("relevant")
+  
+
+  const toggleCategory = (e) => {
+    if(category.includes(e.target.value)) {
+      // If category exists, remove it
+      console.log("remove cat: ", category)
+      setCategory(prevCategory => prevCategory.filter(item => item !== e.target.value))
+    } else {
+      // If category does not exist, add it
+      console.log("add cat: ", category)
+      setCategory(prevCategory => [...prevCategory, e.target.value])
+    }
+  }
+
+  // filter products based on category
+  useEffect(() => {
+    if (category.length === 0) {
+      setFilterProducts(products);
+    } else {
+      setFilterProducts(products.filter((product) => category.includes(product.category)));
+    }
+  }, [category, products]);
+  
+
+  // sort filter products 
+  useEffect(() => {
+    let sorted = [...filterProducts]
+
+    console.log("sorted prod: ", sorted)
+
+    if (sortOption === "low-high") {
+      sorted.sort((a, b) => a.price - b.price)
+    } else if (sortOption === "high-low") {
+      sorted.sort((a, b) => b.price - a.price)
+    }
+
+    setSortedProducts(sorted)
+  }, [filterProducts, sortOption])
 
   return (
     <div className="flex flex-col md:flex-row gap-4 pt-10 border-t">
@@ -26,15 +68,30 @@ function Collection() {
           <p className="mb-3 text-sm font-medium">CATEGORIES</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700 ">
             <p className="flex gap-2">
-              <input type="checkbox" value={"Men"} className="w-3" /> Men
+              <input 
+              type="checkbox" 
+              value={"Men"} 
+              className="w-3" 
+              onChange={toggleCategory}
+              /> Men
             </p>
 
             <p className="flex gap-2">
-              <input type="checkbox" value={"Women"} className="w-3" /> Women
+              <input 
+              type="checkbox" 
+              value={"Women"} 
+              className="w-3" 
+              onChange={toggleCategory}
+              /> Women
             </p>
 
             <p className="flex gap-2">
-              <input type="checkbox" value={"Kids"} className="w-3" /> Kids
+              <input 
+              type="checkbox" 
+              value={"Kids"} 
+              className="w-3" 
+              onChange={toggleCategory}
+              /> Kids
             </p>
           </div>
         </div>
@@ -45,7 +102,11 @@ function Collection() {
         <div className="flex justify-between text-base sm:text-2xl mb-4">
           <h2>ALL COLLECTIONS</h2>
           {/* product sort */}
-          <select className="border-2 border-gray-300 text-sm px-2">
+          <select 
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+          className="border-2 border-gray-300 text-sm px-2"
+          >
             <option value="relevant">Sort by: Relevant</option>
             <option value="low-high">Sort by: Low to High</option>
             <option value="high-low">Sort by: High to Low</option>
@@ -53,8 +114,9 @@ function Collection() {
         </div>
 
         {/* mapping product */}
+        {loading ? <div>Loading products...</div> : ""}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 gap-y-6">
-          {products.map((product) => (
+          {sortedProducts.map((product) => (
             <ProductItem
               key={product._id}
               id={product._id}
