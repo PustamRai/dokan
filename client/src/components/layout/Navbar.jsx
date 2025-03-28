@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { BiSearch, BiUser, BiShoppingBag, BiMenu, BiX } from "react-icons/bi";
+import { useProductContext } from "../../context/productContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { showSearch, setShowSearch } = useProductContext()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -55,7 +57,10 @@ const Navbar = () => {
 
       {/* Icons */}
       <div className="flex items-center space-x-4">
-        <button className="p-1 hover:text-gray-500 transition-colors hover:cursor-pointer">
+        <button 
+        className="p-1 hover:text-gray-500 transition-colors hover:cursor-pointer"
+        onClick={() => setShowSearch(!showSearch)}
+        >
           <BiSearch size={20} />
         </button>
 

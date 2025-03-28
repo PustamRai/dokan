@@ -9,6 +9,9 @@ const ProductContext = createContext()
 export const ProductProvider = ({ children }) => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true);
+    const [search, setSearch] = useState('')
+    const [showSearch, setShowSearch] = useState(false)
+
 
     const currency = "$"
 
@@ -33,7 +36,15 @@ export const ProductProvider = ({ children }) => {
     }, [])
 
     return (
-        <ProductContext.Provider value={{ products, loading, currency }}>
+        <ProductContext.Provider value={{ 
+            products, 
+            loading, 
+            currency, 
+            search, 
+            setSearch, 
+            showSearch, 
+            setShowSearch 
+            }}>
             {children}
         </ProductContext.Provider>
     )

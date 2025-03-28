@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useProductContext } from "../context/productContext";
 import ProductItem from "../components/ProductItem";
+import SearchBar from "../components/SearchBar";
 
 function Collection() {
-  const { products, loading } = useProductContext();
+  const { products, loading, search } = useProductContext();
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([])
   const [category, setCategory] = useState([])
@@ -24,20 +25,40 @@ function Collection() {
   }
 
   // filter products based on category
+  // useEffect(() => {
+  //   if (category.length === 0) {
+  //     setFilterProducts(products);
+  //   } else {
+  //     setFilterProducts(products.filter((product) => category.includes(product.category)));
+  //   }
+  // }, [category, products]);
+
+  // Filter products based on category & search query**
   useEffect(() => {
-    if (category.length === 0) {
-      setFilterProducts(products);
-    } else {
-      setFilterProducts(products.filter((product) => category.includes(product.category)));
+    let copyProducts = products;
+
+    // Apply category filter
+    if (category.length > 0) {
+      copyProducts = copyProducts.filter((product) =>
+        category.includes(product.category)
+    );
+    console.log("filter category: ", copyProducts)
     }
-  }, [category, products]);
+
+    // Apply search filter
+    if (search.trim() !== "") {
+      copyProducts = copyProducts.filter((product) =>
+        product.description.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    setFilterProducts(copyProducts);
+  }, [category, search, products]);
   
 
   // sort filter products 
   useEffect(() => {
     let sorted = [...filterProducts]
-
-    console.log("sorted prod: ", sorted)
 
     if (sortOption === "low-high") {
       sorted.sort((a, b) => a.price - b.price)
@@ -49,7 +70,9 @@ function Collection() {
   }, [filterProducts, sortOption])
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 pt-10 border-t">
+    <>
+    <SearchBar /> 
+    <div className="flex flex-col md:flex-row gap-4 pt-10 ">
       {/* filter options */}
       <div className="min-w-56">
         <p
@@ -105,7 +128,7 @@ function Collection() {
           <select 
           value={sortOption}
           onChange={(e) => setSortOption(e.target.value)}
-          className="border-2 border-gray-300 text-sm px-2"
+          className="border-2 border-gray-300 text-sm px-2 cursor-pointer" 
           >
             <option value="relevant">Sort by: Relevant</option>
             <option value="low-high">Sort by: Low to High</option>
@@ -128,6 +151,7 @@ function Collection() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
