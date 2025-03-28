@@ -24,14 +24,6 @@ function Collection() {
     }
   }
 
-  // filter products based on category
-  // useEffect(() => {
-  //   if (category.length === 0) {
-  //     setFilterProducts(products);
-  //   } else {
-  //     setFilterProducts(products.filter((product) => category.includes(product.category)));
-  //   }
-  // }, [category, products]);
 
   // Filter products based on category & search query**
   useEffect(() => {
@@ -42,7 +34,6 @@ function Collection() {
       copyProducts = copyProducts.filter((product) =>
         category.includes(product.category)
     );
-    console.log("filter category: ", copyProducts)
     }
 
     // Apply search filter
