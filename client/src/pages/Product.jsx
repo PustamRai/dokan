@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useProductContext } from "../context/productContext";
 import { useParams } from "react-router-dom";
 import { IoIosStar } from "react-icons/io";
+import RelatedProducts from "../components/RelatedProducts";
 
 function Product() {
   const { products } = useProductContext();
@@ -116,7 +117,7 @@ function Product() {
 
           {/* Add to Cart Button */}
           <button
-            className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800 transition-colors duration-300"
+            className="w-full bg-black text-white py-3  hover:bg-gray-800 transition-colors duration-300"
             disabled={!selectedSize}
           >
             {selectedSize ? "Add to Cart" : "Select a Size"}
@@ -222,6 +223,10 @@ function Product() {
           )}
         </div>
       </div>
+
+      {/*  Display Related Products */}
+      <RelatedProducts category={productData.category} />
+
     </div>
   ) : (
     <div className="opacity-0"></div>
