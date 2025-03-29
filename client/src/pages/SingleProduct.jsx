@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { IoIosStar } from "react-icons/io";
 import RelatedProducts from "../components/RelatedProducts";
 
-function Product() {
+function SingleProduct() {
   const { products } = useProductContext();
   const { productId } = useParams();
   const [productData, setProductData] = useState(null);
@@ -54,13 +54,13 @@ function Product() {
 
   return productData ? (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <div className="flex flex-col md:flex-row gap-8 items-center">
+      <div className="flex flex-col md:flex-row gap-8">
         {/* Product Image - Responsive sizing */}
         <div className="w-full md:w-1/2 lg:w-1/2">
           <img
             src={productData.image}
             alt={productData.name}
-            className="w-full h-auto object-cover rounded-lg shadow-lg"
+            className="w-full h-[400px] md:h-[500px] object-cover rounded-sm shadow-lg"
           />
         </div>
 
@@ -101,7 +101,7 @@ function Product() {
                   key={size}
                   onClick={() => setSelectedSize(size)}
                   className={`
-                    px-4 py-2 border rounded-md transition-all duration-200
+                    px-4 py-2 border transition-all duration-200 cursor-pointer
                     ${
                       selectedSize === size
                         ? "bg-black text-white border-black"
@@ -117,7 +117,7 @@ function Product() {
 
           {/* Add to Cart Button */}
           <button
-            className="w-full bg-black text-white py-3  hover:bg-gray-800 transition-colors duration-300"
+            className="w-full bg-black text-white py-3  hover:bg-gray-800 transition-colors duration-300 cursor-pointer"
             disabled={!selectedSize}
           >
             {selectedSize ? "Add to Cart" : "Select a Size"}
@@ -141,7 +141,7 @@ function Product() {
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`
-                px-4 py-2 border-b-2 transition-colors
+                px-4 py-2 border-b-2 transition-colors cursor-pointer
                 ${
                   activeTab === tab
                     ? "border-black text-black"
@@ -233,4 +233,4 @@ function Product() {
   );
 }
 
-export default Product;
+export default SingleProduct;
