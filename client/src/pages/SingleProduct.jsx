@@ -3,7 +3,7 @@ import { useProductContext } from "../context/productContext";
 import { useParams } from "react-router-dom";
 import { IoIosStar } from "react-icons/io";
 import RelatedProducts from "../components/RelatedProducts";
-import DescriptionAndReview from "../DescriptionReview";
+import DescriptionAndReview from "../components/DescriptionReview";
 
 function SingleProduct() {
   const { products } = useProductContext();
