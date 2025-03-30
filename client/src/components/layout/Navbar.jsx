@@ -1,15 +1,24 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { BiSearch, BiUser, BiShoppingBag, BiMenu, BiX } from "react-icons/bi";
 import { useProductContext } from "../../context/productContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { showSearch, setShowSearch } = useProductContext()
+  const navigate = useNavigate()
+
+  const { setToken } = useProductContext()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const logout = () => {
+    localStorage.removeItem('token')
+    setToken('')
+    navigate('/')
+  }
 
   return (
     <nav className="w-full py-4 px-3 md:px-32 flex items-center justify-between bg-gray-50 shadow-sm">
@@ -81,7 +90,7 @@ const Navbar = () => {
             <BiUser size={20} />
           </button>
         </NavLink>
-         
+        
 
           {/* Dropdown Menu */}
           <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50opacity-0 invisible group-hover/dropdown:visible group-hover/dropdown:opacity-100 hover:visible hover:opacity-100 transition-all duration-300 ease-in-out">
@@ -92,7 +101,10 @@ const Navbar = () => {
               <button className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors cursor-pointer">
                 Orders
               </button>
-              <button className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors cursor-pointer">
+              <button 
+              className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors cursor-pointer"
+              onClick={logout}
+              >
                 Logout
               </button>
             </div>
