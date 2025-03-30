@@ -6,12 +6,27 @@ import RelatedProducts from "../components/RelatedProducts";
 import DescriptionAndReview from "../components/DescriptionReview";
 
 function SingleProduct() {
+  const { products, addToCart } = useProductContext();
+  const { productId } = useParams();
   const [productData, setProductData] = useState(null);
 
   const [selectedSize, setSelectedSize] = useState(null);
 
   const sizes = ["M", "L", "XL"];
 
+  useEffect(() => {
+    const fetchProductData = () => {
+      products.map((product) => {
+        if (product._id === productId) {
+          setProductData(product);
+          console.log("prod data: ", product);
+          return null;
+        }
+      });
+    };
+
+    fetchProductData();
+  }, [productId, products]);
 
   if (!productData) {
     return (
@@ -19,6 +34,9 @@ function SingleProduct() {
     );
   }
 
+  const handleAddCart = () => {
+    addToCart(productData._id, selectedSize)
+  }
 
   return productData ? (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
@@ -87,6 +105,7 @@ function SingleProduct() {
           <button
             className="w-full bg-black text-white py-3  hover:bg-gray-800 transition-colors duration-300 cursor-pointer"
             disabled={!selectedSize}
+            onClick={handleAddCart}
           >
             {selectedSize ? "Add to Cart" : "Select a Size"}
           </button>

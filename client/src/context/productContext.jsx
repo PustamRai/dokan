@@ -10,6 +10,7 @@ export const ProductProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+  const [cartItems, setCartItems] = useState({})
 
   const currency = "$";
 
@@ -34,6 +35,27 @@ export const ProductProvider = ({ children }) => {
 
     fetchProducts();
   }, []);
+
+  // add to cart
+    const addToCart = async (itemId, size) => {
+      try {
+        const token = ""
+
+        if(!token) {
+          console.log("No token found")
+          toast.error("please log in first")
+          return
+        }
+
+        const response = await API.post('/api/cart/add', { itemId, size })
+        console.log("add cart: ", response)
+      } catch (error) {
+        console.log("error adding product to cart: ", error)
+        toast.error(error.response?.data?.message || "failed to add to cart")
+      }
+    }
+  
+  
 
   return (
     <ProductContext.Provider
