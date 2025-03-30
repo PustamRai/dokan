@@ -6,27 +6,12 @@ import RelatedProducts from "../components/RelatedProducts";
 import DescriptionAndReview from "../components/DescriptionReview";
 
 function SingleProduct() {
-  const { products, addToCart } = useProductContext();
-  const { productId } = useParams();
   const [productData, setProductData] = useState(null);
 
   const [selectedSize, setSelectedSize] = useState(null);
 
   const sizes = ["M", "L", "XL"];
 
-  useEffect(() => {
-    const fetchProductData = () => {
-      products.find((product) => {
-        if (product._id === productId) {
-          setProductData(product);
-          console.log("prod data: ", product);
-          return null;
-        }
-      });
-    };
-
-    fetchProductData();
-  }, [productId, products]);
 
   if (!productData) {
     return (
