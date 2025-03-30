@@ -76,9 +76,12 @@ const Navbar = () => {
         </button> */}
 
         <div className="relative group/dropdown">
-          <button className="p-1 hover:text-gray-500 transition-colors hover:cursor-pointer">
+        <NavLink to='/login'>
+        <button className="p-1 hover:text-gray-500 transition-colors hover:cursor-pointer">
             <BiUser size={20} />
           </button>
+        </NavLink>
+         
 
           {/* Dropdown Menu */}
           <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50opacity-0 invisible group-hover/dropdown:visible group-hover/dropdown:opacity-100 hover:visible hover:opacity-100 transition-all duration-300 ease-in-out">

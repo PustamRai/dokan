@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import SingleProduct from "./pages/SingleProduct";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
+import SignUp from "./components/SignUp";
 import PlaceOrder from "./pages/PlaceOrder";
 import Orders from "./pages/PlaceOrder";
 import PageNotFound from "./pages/PageNotFound";
@@ -28,6 +29,7 @@ function App() {
               <Route path="/product/:productId" element={<SingleProduct />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
               <Route path="/place-order" element={<PlaceOrder />} />
               <Route path="/orders" element={<Orders />} />
             </Route>
