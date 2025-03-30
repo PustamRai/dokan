@@ -15,7 +15,6 @@ function Login() {
 
     try {
       const response = await API.post('/api/user/login', { email, password })
-      console.log("login res: ", response)
 
       if(response.data.success) {
         setToken(response?.data?.data?.token)

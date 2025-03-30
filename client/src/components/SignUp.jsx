@@ -1,15 +1,37 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useProductContext } from "../context/productContext";
 
 
 function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const { API, toast } = useProductContext()
+  
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Sign up attempt with:", { name, email, password });
+
+    try {
+      const response = await API.post('/api/user/register', { name, email, password })
+      const { token } = response?.data?.data
+
+      localStorage.setItem('token', token)
+      navigate('/')
+      toast.success(response?.data?.message)
+      setName('')
+      setEmail('')
+      setPassword('')
+    } catch (error) {
+      console.log("error in signup: ", error)
+      toast.error(error.response?.data?.message || "User signup failed")
+      setName('')
+      setEmail('')
+      setPassword('')
+    }
   };
 
   return (
