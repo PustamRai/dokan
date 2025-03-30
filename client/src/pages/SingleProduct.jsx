@@ -6,7 +6,7 @@ import RelatedProducts from "../components/RelatedProducts";
 import DescriptionAndReview from "../components/DescriptionReview";
 
 function SingleProduct() {
-  const { products } = useProductContext();
+  const { products, addToCart } = useProductContext();
   const { productId } = useParams();
   const [productData, setProductData] = useState(null);
 
@@ -16,7 +16,7 @@ function SingleProduct() {
 
   useEffect(() => {
     const fetchProductData = () => {
-      products.map((product) => {
+      products.find((product) => {
         if (product._id === productId) {
           setProductData(product);
           console.log("prod data: ", product);
@@ -33,6 +33,7 @@ function SingleProduct() {
       <div className="text-center py-10 text-gray-500">Loading product...</div>
     );
   }
+
 
   return productData ? (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
