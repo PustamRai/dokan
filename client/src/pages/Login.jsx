@@ -1,16 +1,42 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom"
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom"
+import { useProductContext } from "../context/productContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
+  
+  const { API, toast, token, setToken } = useProductContext()
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login attempt with:", { email, password });
 
+    try {
+      const response = await API.post('/api/user/login', { email, password })
+      console.log("login res: ", response)
+
+      if(response.data.success) {
+        setToken(response?.data?.data?.token)
+        localStorage.setItem('token', response?.data?.data?.token)
+      }
+      toast.success(response?.data?.message)
+      setEmail('')
+      setPassword('')
+    } catch (error) {
+      console.log("error in logIn: ", error)
+      toast.error(error.response?.data?.message || "User login failed")
+      setEmail('')
+      setPassword('')
+    }
   };
+
+  useEffect(() => {
+    if(token) {
+      navigate('/')
+    }
+  }, [token])
 
   return (
     <div className="flex justify-center items-center min-h-screen  p-4">

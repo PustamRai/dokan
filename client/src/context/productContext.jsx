@@ -11,6 +11,7 @@ export const ProductProvider = ({ children }) => {
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({})
+  const [token, setToken] = useState('')
 
   const currency = "$";
 
@@ -55,7 +56,12 @@ export const ProductProvider = ({ children }) => {
       }
     }
   
-  
+  // login state
+  useEffect(() => {
+    if(!token && localStorage.getItem('token')) {
+      setToken((localStorage.getItem('token')))
+    }
+  }, [])
 
   return (
     <ProductContext.Provider
@@ -67,7 +73,11 @@ export const ProductProvider = ({ children }) => {
         setSearch,
         showSearch,
         setShowSearch,
-        addToCart
+        addToCart,
+        API,
+        toast,
+        token,
+        setToken
       }}
     >
       {children}
