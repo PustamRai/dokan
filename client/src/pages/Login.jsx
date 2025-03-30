@@ -16,7 +16,7 @@ function Login() {
     try {
       const response = await API.post('/api/user/login', { email, password })
 
-      if(response.data.success) {1
+      if(response.data.success) {
         setToken(response?.data?.data?.token)
         localStorage.setItem('token', response?.data?.data?.token)
       }
@@ -31,15 +31,11 @@ function Login() {
     }
   };
 
-  // login state after refresh 
   useEffect(() => {
-    if (!token && localStorage.getItem('token')) {
-      setToken(localStorage.getItem('token'));
+    if(token) {
+      navigate('/')
     }
-    if (token) {
-      navigate('/');
-    }
-  }, [token]);
+  }, [token])
 
   return (
     <div className="flex justify-center items-center min-h-screen  p-4">

@@ -55,6 +55,13 @@ export const ProductProvider = ({ children }) => {
         toast.error(error.response?.data?.message || "failed to add to cart")
       }
     }
+  
+  // login state after refresh
+  useEffect(() => {
+    if(!token && localStorage.getItem('token')) {
+      setToken((localStorage.getItem('token')))
+    }
+  }, [])
 
   return (
     <ProductContext.Provider
