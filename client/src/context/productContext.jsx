@@ -41,10 +41,8 @@ export const ProductProvider = ({ children }) => {
   const addToCart = async (itemId, size) => {
     try {
       const token = localStorage.getItem("token");
-      console.log("cart token: ", token);
 
       if (!token) {
-        console.log("No token found");
         toast.error("please log in first");
         return;
       }
