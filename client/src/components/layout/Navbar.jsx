@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { BiSearch, BiUser, BiShoppingBag, BiMenu, BiX } from "react-icons/bi";
+import { BiSearch, BiUser, BiMenu, BiX } from "react-icons/bi";
+import { PiShoppingCartDuotone } from "react-icons/pi";
 import { useProductContext } from "../../context/productContext";
 
 const Navbar = () => {
@@ -8,7 +9,7 @@ const Navbar = () => {
   const { showSearch, setShowSearch } = useProductContext();
   const navigate = useNavigate();
 
-  const { token, setToken } = useProductContext();
+  const { token, setToken, cartCount } = useProductContext();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -72,10 +73,12 @@ const Navbar = () => {
         </button>
 
         <button className="p-1 hover:text-gray-500 transition-colors relative hover:cursor-pointer">
-          <BiShoppingBag size={20} />
-          <span className="absolute -top-1 -right-1 bg-black text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-            3
-          </span>
+          <PiShoppingCartDuotone size={20} />
+          {token && (
+            <span className="absolute -top-1 -right-1 p-1 bg-black text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+              {cartCount}
+            </span>
+          )}
         </button>
 
         <div className="relative group/dropdown">
@@ -101,9 +104,9 @@ const Navbar = () => {
                 <button className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors cursor-pointer">
                   My Profile
                 </button>
-                <button 
-                className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors cursor-pointer"
-                onClick={() => navigate('/orders')}
+                <button
+                  className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors cursor-pointer"
+                  onClick={() => navigate("/orders")}
                 >
                   Orders
                 </button>

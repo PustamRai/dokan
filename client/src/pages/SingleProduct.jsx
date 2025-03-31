@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useProductContext } from "../context/productContext";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { IoIosStar } from "react-icons/io";
 import RelatedProducts from "../components/RelatedProducts";
 import DescriptionAndReview from "../components/DescriptionReview";
 
 function SingleProduct() {
-  const { products, addToCart } = useProductContext();
+  const { products, addToCart, token } = useProductContext();
   const { productId } = useParams();
   const [productData, setProductData] = useState(null);
+  const navigate = useNavigate()
 
   const [selectedSize, setSelectedSize] = useState(null);
 
@@ -19,7 +20,6 @@ function SingleProduct() {
       products.map((product) => {
         if (product._id === productId) {
           setProductData(product);
-          console.log("prod data: ", product);
           return null;
         }
       });
@@ -35,7 +35,12 @@ function SingleProduct() {
   }
 
   const handleAddCart = () => {
-    addToCart(productData._id, selectedSize)
+    if(token) {
+
+      addToCart(productData._id, selectedSize)
+    } else {
+      navigate('/login')
+    }
   }
 
   return productData ? (

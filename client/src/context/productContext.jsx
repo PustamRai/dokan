@@ -11,6 +11,7 @@ export const ProductProvider = ({ children }) => {
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({});
+  const [cartCount, setCartCount] = useState(0);
   const [token, setToken] = useState("");
 
   const currency = "$";
@@ -43,7 +44,6 @@ export const ProductProvider = ({ children }) => {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        toast.error("please log in first");
         return;
       }
 
@@ -56,12 +56,35 @@ export const ProductProvider = ({ children }) => {
           },
         }
       );
-      toast.success(response?.data?.message)
+
+      setCartItems(response?.data?.data || {});
+      toast.success(response?.data?.message);
     } catch (error) {
       console.log("error adding product to cart: ", error);
       toast.error(error.response?.data?.message || "failed to add to cart");
     }
   };
+  // Debug: Log cart updates
+  // useEffect(() => {
+  //   console.log('updated cart items: ', cartItems)
+
+  // }, [cartItems])
+
+  // update cart count
+  useEffect(() => {
+    const getCartCount = () => {
+      let totalCount = 0;
+      for (const items in cartItems) {
+        for (const item in cartItems[items]) {
+          if (cartItems[items][item] > 0) {
+            totalCount += cartItems[items][item];
+          }
+        }
+      }
+      return totalCount;
+    };
+    setCartCount(getCartCount());
+  }, [cartItems]);
 
   // login state after refresh
   useEffect(() => {
@@ -81,6 +104,7 @@ export const ProductProvider = ({ children }) => {
         showSearch,
         setShowSearch,
         addToCart,
+        cartCount,
         API,
         toast,
         token,
