@@ -10,8 +10,8 @@ export const ProductProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
-  const [cartItems, setCartItems] = useState({})
-  const [token, setToken] = useState('')
+  const [cartItems, setCartItems] = useState({});
+  const [token, setToken] = useState("");
 
   const currency = "$";
 
@@ -38,30 +38,39 @@ export const ProductProvider = ({ children }) => {
   }, []);
 
   // add to cart
-    const addToCart = async (itemId, size) => {
-      try {
-        const token = ""
+  const addToCart = async (itemId, size) => {
+    try {
+      const token = localStorage.getItem("token");
+      console.log("cart token: ", token);
 
-        if(!token) {
-          console.log("No token found")
-          toast.error("please log in first")
-          return
-        }
-
-        const response = await API.post('/api/cart/add', { itemId, size })
-        console.log("add cart: ", response)
-      } catch (error) {
-        console.log("error adding product to cart: ", error)
-        toast.error(error.response?.data?.message || "failed to add to cart")
+      if (!token) {
+        console.log("No token found");
+        toast.error("please log in first");
+        return;
       }
+
+      const response = await API.post(
+        "/api/cart/add",
+        { itemId, size },
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+      toast.success(response?.data?.message)
+    } catch (error) {
+      console.log("error adding product to cart: ", error);
+      toast.error(error.response?.data?.message || "failed to add to cart");
     }
-  
+  };
+
   // login state after refresh
   useEffect(() => {
-    if(!token && localStorage.getItem('token')) {
-      setToken((localStorage.getItem('token')))
+    if (!token && localStorage.getItem("token")) {
+      setToken(localStorage.getItem("token"));
     }
-  }, [])
+  }, []);
 
   return (
     <ProductContext.Provider
@@ -77,7 +86,7 @@ export const ProductProvider = ({ children }) => {
         API,
         toast,
         token,
-        setToken
+        setToken,
       }}
     >
       {children}

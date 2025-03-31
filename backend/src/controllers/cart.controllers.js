@@ -37,8 +37,6 @@ export const addToCart = async (req, res) => {
         const { itemId, size } = req.body
         const userId = req.user._id
         
-        console.log("user id: ", userId)
-    
         const userData = await UserModel.findById(userId)
         if (!userData) {
             return res.status(404).json({
