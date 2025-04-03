@@ -72,14 +72,16 @@ const Navbar = () => {
           <BiSearch size={20} />
         </button>
 
-        <button className="p-1 hover:text-gray-500 transition-colors relative hover:cursor-pointer">
-          <PiShoppingCartDuotone size={20} />
-          {token && (
-            <span className="absolute -top-1 -right-1 p-1 bg-black text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-              {cartCount}
-            </span>
-          )}
-        </button>
+        <NavLink to="/cart">
+          <button className="p-1 hover:text-gray-500 transition-colors relative hover:cursor-pointer">
+            <PiShoppingCartDuotone size={20} />
+            {token && (
+              <span className="absolute -top-1 -right-1 p-1 bg-black text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                {cartCount}
+              </span>
+            )}
+          </button>
+        </NavLink>
 
         <div className="relative group/dropdown">
           {token ? (

@@ -14,7 +14,7 @@ export const ProductProvider = ({ children }) => {
   const [cartCount, setCartCount] = useState(0);
   const [token, setToken] = useState("");
 
-  const currency = "$";
+  const currency = "Rs.";
 
   // fetch product
   useEffect(() => {
@@ -109,6 +109,7 @@ export const ProductProvider = ({ children }) => {
         toast,
         token,
         setToken,
+        cartItems
       }}
     >
       {children}
