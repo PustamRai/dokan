@@ -134,7 +134,6 @@ export const ProductProvider = ({ children }) => {
         showSearch,
         setShowSearch,
         addToCart,
-        removeFromCart,
         cartCount,
         API,
         toast,

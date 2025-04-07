@@ -2,6 +2,7 @@ import React from "react";
 import { TiMinus } from "react-icons/ti";
 import { FaPlus } from "react-icons/fa6";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { BsCash } from "react-icons/bs";
 import { useProductContext } from "../context/productContext";
 
 function Cart() {
@@ -28,7 +29,7 @@ function Cart() {
   const total = subtotal + shipping + tax;
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
+    <div className="min-h-screen py-8">
       <div className="container mx-auto px-4">
         <h1 className="text-2xl md:text-3xl font-bold mb-8 text-center">Your Shopping Cart</h1>
 
@@ -131,19 +132,7 @@ function Cart() {
 
             {/* Continue Shopping */}
             <div className="mt-6">
-              <button className="flex items-center text-blue-600 hover:text-blue-800">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 mr-1"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+              <button className="flex items-center text-blue-600 hover:underline cursor-pointer">
                 Continue Shopping
               </button>
             </div>
@@ -174,36 +163,9 @@ function Cart() {
                 </div>
               </div>
               <div className="space-y-4">
-                <div className="flex flex-col space-y-2">
-                  <label htmlFor="promo" className="text-sm font-medium text-gray-700">
-                    Promo Code
-                  </label>
-                  <div className="flex">
-                    <input
-                      type="text"
-                      id="promo"
-                      className="flex-1 border border-gray-300 rounded-l-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="Enter promo code"
-                    />
-                    <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded-r-md hover:bg-gray-300">
-                      Apply
-                    </button>
-                  </div>
-                </div>
-                <button className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition-colors">
+                <button className="w-full bg-black text-white py-3 rounded-sm hover:bg-gray-800 transition-colors cursor-pointer">
                   Proceed to Checkout
                 </button>
-              </div>
-            </div>
-
-            {/* Payment Methods */}
-            <div className="mt-6 bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-sm font-medium text-gray-700 mb-3">We Accept</h3>
-              <div className="flex space-x-4">
-                <div className="h-8 w-12 bg-gray-200 rounded"></div>
-                <div className="h-8 w-12 bg-gray-200 rounded"></div>
-                <div className="h-8 w-12 bg-gray-200 rounded"></div>
-                <div className="h-8 w-12 bg-gray-200 rounded"></div>
               </div>
             </div>
           </div>
