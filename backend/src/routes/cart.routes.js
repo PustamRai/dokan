@@ -8,7 +8,7 @@ import { authUser } from "../middlewares/auth.middlewares.js"
 
 const cartRouter = Router()
 
-cartRouter.post("/get", authUser, getUserCart)
+cartRouter.get("/get", authUser, getUserCart)
 cartRouter.post("/add", authUser, addToCart)
 cartRouter.post("/update", authUser, updateCart)
 

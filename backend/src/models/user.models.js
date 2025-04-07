@@ -16,7 +16,7 @@ const userSchema = new Schema(
       required: true,
     },
     cartData: {
-      type: Object,
+      type: Array,
       default: {},
     },
   },

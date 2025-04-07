@@ -1,6 +1,5 @@
 import { UserModel } from "../models/user.models.js"
 
-
 // get user cart data
 export const getUserCart = async (req, res) => {
     try {
@@ -14,7 +13,7 @@ export const getUserCart = async (req, res) => {
             });
         }
 
-        let cartData = await userData.cartData || {} // ensure cartData is object
+        let cartData = userData.cartData || [] // ensure cartData is an array
 
         return res.status(200).json({
             success: true,
@@ -22,7 +21,7 @@ export const getUserCart = async (req, res) => {
             message: "Cart fetched successfully",
         });
     } catch (error) {
-        console.error("Failed to fetched cart:", error);
+        console.error("Failed to fetch cart:", error);
         return res.status(500).json({
             success: false,
             message: "Failed to fetch cart",
@@ -37,7 +36,6 @@ export const addToCart = async (req, res) => {
         const { itemId, size } = req.body
         const userId = req.user._id
         
-    
         const userData = await UserModel.findById(userId)
         if (!userData) {
             return res.status(404).json({
@@ -46,17 +44,17 @@ export const addToCart = async (req, res) => {
             });
         }
 
-        let cartData = userData.cartData || {}; // Ensure cartData exists
+        let cartData = userData.cartData || []; // Ensure cartData exists as an array
     
         // Check if item already exists in cart
-        if (!cartData[itemId]) {
-            cartData[itemId] = {}; // Initialize item
-        }
-
-        if (!cartData[itemId][size]) {
-            cartData[itemId][size] = 1; // Initialize quantity
+        const existingItemIndex = cartData.findIndex(item => item.itemId === itemId && item.size === size);
+        
+        if (existingItemIndex === -1) {
+            // Item doesn't exist, add new item
+            cartData.push({ itemId, size, quantity: 1 });
         } else {
-            cartData[itemId][size] += 1; // Increase quantity
+            // Item exists, update quantity
+            cartData[existingItemIndex].quantity += 1;
         }
 
         // Update user's cart in the database
@@ -81,7 +79,7 @@ export const addToCart = async (req, res) => {
     }
 }
 
-// update user cart
+// update user cart data
 export const updateCart = async (req, res) => {
     try {
         const { itemId, size, quantity } = req.body;
@@ -110,15 +108,20 @@ export const updateCart = async (req, res) => {
             });
         }
 
-        let cartData = userData.cartData || {}; // Ensure cartData exists
+        let cartData = userData.cartData || []; // Ensure cartData exists
 
-        // Check if item exists in cart, if not, initialize it
-        if (!cartData[itemId]) {
-            cartData[itemId] = {};
+        // Check if item exists in cart
+        const existingItemIndex = cartData.findIndex(item => item.itemId === itemId && item.size === size);
+        
+        if (existingItemIndex === -1) {
+            return res.status(404).json({
+                success: false,
+                message: "Item not found in cart",
+            });
         }
 
         // Update quantity for the given size
-        cartData[itemId][size] = quantity;
+        cartData[existingItemIndex].quantity = quantity;
 
         // Save updated cart data
         const updatedUser = await UserModel.findByIdAndUpdate(

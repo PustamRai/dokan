@@ -10,7 +10,8 @@ export const ProductProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
-  const [cartItems, setCartItems] = useState({});
+  const [cartItems, setCartItems] = useState([]);
+  const [cartData, setCartData] = useState([]);
   const [cartCount, setCartCount] = useState(0);
   const [token, setToken] = useState("");
 
@@ -38,26 +39,53 @@ export const ProductProvider = ({ children }) => {
     fetchProducts();
   }, []);
 
+  console.log("cart items: ", cartItems);
+
+  // cart data fetch
+  useEffect(() => {
+    const fetchCart = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      try {
+        const response = await API.get("/api/cart/get", {
+          headers: { 
+            Authorization: token 
+          },
+        });
+
+        const data = response?.data?.data || [];
+        setCartData(data)
+      } catch (error) {
+        console.log("error in fetching cart data: ", error);
+        toast.error(
+          error.response?.data?.message || "failed to fetch cart data"
+        );
+      }
+    };
+
+    fetchCart();
+  }, []);
+
   // add to cart
   const addToCart = async (itemId, size) => {
     try {
       const token = localStorage.getItem("token");
 
-      if (!token) {
-        return;
-      }
+      if (!token) return;
 
       const response = await API.post(
         "/api/cart/add",
         { itemId, size },
         {
           headers: {
-            Authorization: `${token}`,
+            Authorization: token,
           },
         }
       );
 
-      setCartItems(response?.data?.data || {});
+      const data = response?.data?.data || [];
+      setCartItems(data);
       toast.success(response?.data?.message);
     } catch (error) {
       console.log("error adding product to cart: ", error);
@@ -67,24 +95,26 @@ export const ProductProvider = ({ children }) => {
   // Debug: Log cart updates
   // useEffect(() => {
   //   console.log('updated cart items: ', cartItems)
-
   // }, [cartItems])
 
-  // update cart count
+
+  // get cart count
   useEffect(() => {
     const getCartCount = () => {
       let totalCount = 0;
-      for (const items in cartItems) {
-        for (const item in cartItems[items]) {
-          if (cartItems[items][item] > 0) {
-            totalCount += cartItems[items][item];
-          }
+
+      // Iterate over the cartItems array and sum up the quantities
+      cartData.forEach((item) => {
+        if (item.quantity > 0) {
+          totalCount += item.quantity;
         }
-      }
+      });
+
       return totalCount;
     };
+
     setCartCount(getCartCount());
-  }, [cartItems]);
+  }, [cartData]);
 
   // login state after refresh
   useEffect(() => {
@@ -104,12 +134,13 @@ export const ProductProvider = ({ children }) => {
         showSearch,
         setShowSearch,
         addToCart,
+        removeFromCart,
         cartCount,
         API,
         toast,
         token,
         setToken,
-        cartItems
+        cartData
       }}
     >
       {children}
