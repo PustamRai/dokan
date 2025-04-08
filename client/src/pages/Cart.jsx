@@ -3,6 +3,7 @@ import { TiMinus } from "react-icons/ti";
 import { FaPlus } from "react-icons/fa6";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useProductContext } from "../context/productContext";
+import OrderSummary from "../components/OrderSummary";
 
 function Cart() {
   const { currency, cartData, products } = useProductContext();
@@ -14,18 +15,18 @@ function Cart() {
 
 
 
-  // Calculate subtotal based on cart items and product information
-  const subtotal = cartData.reduce((total, item) => {
-    if (item && item.itemId && item.quantity) {
-      const product = getProductDetails(item.itemId);
-      return total + (product.price * item.quantity);
-    }
-    return total;
-  }, 0);
+  // // Calculate subtotal based on cart items and product information
+  // const subtotal = cartData.reduce((total, item) => {
+  //   if (item && item.itemId && item.quantity) {
+  //     const product = getProductDetails(item.itemId);
+  //     return total + (product.price * item.quantity);
+  //   }
+  //   return total;
+  // }, 0);
   
-  const shipping = 5.99;
-  const tax = subtotal * 0.07;
-  const total = subtotal + shipping + tax;
+  // const shipping = 5.99;
+  // const tax = subtotal * 0.07;
+  // const total = subtotal + shipping + tax;
 
   return (
     <div className="min-h-screen py-8">
@@ -138,7 +139,9 @@ function Cart() {
           </div>
 
           {/* Order Summary */}
-          <div className="lg:w-1/3">
+          <OrderSummary />
+
+          {/* <div className="lg:w-1/3">
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
               <div className="space-y-3 mb-6">
@@ -167,7 +170,7 @@ function Cart() {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

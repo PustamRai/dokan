@@ -16,6 +16,8 @@ export const ProductProvider = ({ children }) => {
   const [token, setToken] = useState("");
 
   const currency = "Rs.";
+  const shippingFee = 5.99;
+  const taxRate = 0.07;
 
   // fetch product
   useEffect(() => {
@@ -116,6 +118,40 @@ export const ProductProvider = ({ children }) => {
     setCartCount(getCartCount());
   }, [cartData]);
 
+
+  // CART ORDER SUMMARY
+  // Helper function to find product details from the itemId
+  const getProductDetails = (itemId) => {
+    return products.find(product => product._id === itemId);
+  };
+
+  // Calculate order summary values
+  const calculateOrderSummary = () => {
+    const subtotal = cartData.reduce((total, item) => {
+      if (item && item.itemId && item.quantity) {
+        const product = getProductDetails(item.itemId);
+        if (product && product.price) {
+          return total + (product.price * item.quantity);
+        }
+      }
+      return total;
+    }, 0);
+    
+    const shipping = shippingFee;
+    const tax = subtotal * taxRate;
+    const total = subtotal + shipping + tax;
+
+    return {
+      subtotal,
+      shipping,
+      tax,
+      total
+    };
+  };
+
+  // The order summary values
+  const orderSummary = calculateOrderSummary();
+
   // login state after refresh
   useEffect(() => {
     if (!token && localStorage.getItem("token")) {
@@ -139,7 +175,10 @@ export const ProductProvider = ({ children }) => {
         toast,
         token,
         setToken,
-        cartData
+        cartData,
+        orderSummary, 
+        shippingFee,
+        taxRate
       }}
     >
       {children}
