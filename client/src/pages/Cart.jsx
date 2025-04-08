@@ -4,34 +4,23 @@ import { FaPlus } from "react-icons/fa6";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useProductContext } from "../context/productContext";
 import OrderSummary from "../components/OrderSummary";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const { currency, cartData, products } = useProductContext();
+  const navigate = useNavigate();
 
   // Helper function to find product details from the itemId
   const getProductDetails = (itemId) => {
-    return products.find(product => product._id === itemId) 
+    return products.find((product) => product._id === itemId);
   };
-
-
-
-  // // Calculate subtotal based on cart items and product information
-  // const subtotal = cartData.reduce((total, item) => {
-  //   if (item && item.itemId && item.quantity) {
-  //     const product = getProductDetails(item.itemId);
-  //     return total + (product.price * item.quantity);
-  //   }
-  //   return total;
-  // }, 0);
-  
-  // const shipping = 5.99;
-  // const tax = subtotal * 0.07;
-  // const total = subtotal + shipping + tax;
 
   return (
     <div className="min-h-screen py-8">
       <div className="container mx-auto px-4">
-        <h1 className="text-2xl md:text-3xl font-bold mb-8 text-center">Your Shopping Cart</h1>
+        <h1 className="text-2xl md:text-3xl font-bold mb-8 text-center">
+          Your Shopping Cart
+        </h1>
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Cart Items */}
@@ -55,10 +44,10 @@ function Cart() {
                 {cartData.map((item, index) => {
                   // Skip items with null values or missing itemId
                   if (!item || !item.itemId) return null;
-                  
+
                   // Get product details based on itemId
                   const product = getProductDetails(item.itemId);
-                  
+
                   return (
                     <div
                       key={item.itemId || index}
@@ -72,19 +61,26 @@ function Cart() {
                           className="w-16 h-16 object-cover rounded"
                         />
                         <div className="ml-4">
-                          <h3 className="font-medium text-gray-800">{product.name}</h3>
+                          <h3 className="font-medium text-gray-800">
+                            {product.name}
+                          </h3>
                           <p className="text-gray-500 text-sm md:hidden">
-                            {currency}{product.price}
+                            {currency}
+                            {product.price}
                           </p>
                           {item.size && (
-                            <p className="text-gray-500 text-xs">Size: {item.size}</p>
+                            <p className="text-gray-500 text-xs">
+                              Size: {item.size}
+                            </p>
                           )}
                         </div>
                       </div>
 
                       {/* Quantity */}
                       <div className="col-span-1 md:col-span-2 flex justify-between md:justify-center items-center mb-4 md:mb-0">
-                        <span className="md:hidden text-gray-500">Quantity:</span>
+                        <span className="md:hidden text-gray-500">
+                          Quantity:
+                        </span>
                         <div className="flex items-center border rounded-md">
                           <button
                             onClick={() => updateQuantity(item.itemId, -1)}
@@ -93,7 +89,9 @@ function Cart() {
                           >
                             <TiMinus size={16} />
                           </button>
-                          <span className="px-2 py-1">{item.quantity || 0}</span>
+                          <span className="px-2 py-1">
+                            {item.quantity || 0}
+                          </span>
                           <button
                             onClick={() => updateQuantity(item.itemId, 1)}
                             className="px-2 py-1 text-gray-600 hover:bg-gray-100"
@@ -106,7 +104,10 @@ function Cart() {
                       {/* Price */}
                       <div className="col-span-1 md:col-span-2 flex justify-between md:justify-center mb-4 md:mb-0">
                         <span className="md:hidden text-gray-500">Price:</span>
-                        <span>{currency}{product.price?.toFixed(2) || '0.00'}</span>
+                        <span>
+                          {currency}
+                          {product.price?.toFixed(2) || "0.00"}
+                        </span>
                       </div>
 
                       {/* Total */}
@@ -114,7 +115,10 @@ function Cart() {
                         <span className="md:hidden text-gray-500">Total:</span>
                         <div className="flex items-center">
                           <span className="font-medium">
-                            {currency}{((product.price || 0) * (item.quantity || 0)).toFixed(2)}
+                            {currency}
+                            {(
+                              (product.price || 0) * (item.quantity || 0)
+                            ).toFixed(2)}
                           </span>
                           <button
                             onClick={() => removeItem()}
@@ -139,8 +143,19 @@ function Cart() {
           </div>
 
           {/* Order Summary */}
-          <OrderSummary />
-          
+          <div className=" my-20">
+            <div className="w-full">
+              <OrderSummary />
+              <div className="space-y-4">
+                <button
+                  className="w-full bg-black text-white py-3 rounded-sm hover:bg-gray-800 transition-colors cursor-pointer"
+                  onClick={() => navigate("/place-order")}
+                >
+                  Proceed to Checkout
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

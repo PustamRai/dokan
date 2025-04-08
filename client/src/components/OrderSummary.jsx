@@ -6,10 +6,10 @@ function OrderSummary() {
 
   // Use orderSummary values from context
   const { subtotal, shipping, tax, total } = orderSummary;
-  
+
   return (
     <div>
-      <div className="lg:w-1/3">
+      <div className="lg:w-96 w-full">
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
           <div className="space-y-3 mb-6">
@@ -43,11 +43,6 @@ function OrderSummary() {
                 </span>
               </div>
             </div>
-          </div>
-          <div className="space-y-4">
-            <button className="w-full bg-black text-white py-3 rounded-sm hover:bg-gray-800 transition-colors cursor-pointer">
-              Proceed to Checkout
-            </button>
           </div>
         </div>
       </div>
