@@ -2,7 +2,6 @@ import React from "react";
 import { TiMinus } from "react-icons/ti";
 import { FaPlus } from "react-icons/fa6";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { BsCash } from "react-icons/bs";
 import { useProductContext } from "../context/productContext";
 
 function Cart() {
