@@ -76,7 +76,7 @@ export const allOrders = async (req, res) => {
 // user order data for frontend
 export const userOrders = async (req, res) => {
   try {
-    const userId = req.user._id;
+    const userId = req.user?._id;
 
     const orders = await OrderModel.find({ userId });
     if (!orders.length) {

@@ -18,6 +18,6 @@ orderRouter.post("/status", adminAuth, updateStatus)
 orderRouter.post("/place-order", authUser, placeOrder)
 
 // User features
-orderRouter.post("/userorders", authUser, userOrders)
+orderRouter.get("/userorders", authUser, userOrders)
 
 export default orderRouter

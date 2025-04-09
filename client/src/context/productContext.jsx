@@ -11,6 +11,7 @@ export const ProductProvider = ({ children }) => {
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [token, setToken] = useState("");
+  const [orderData, setOrderData] = useState([])
 
   const currency = "Rs.";
 
@@ -37,6 +38,31 @@ export const ProductProvider = ({ children }) => {
   }, []);
 
 
+    // fetch order data
+    useEffect(() => {
+      const fetchOrders = async () => {
+        const token = localStorage.getItem('token')
+        if(!token) return
+        
+        try {
+          const response = await API.get('api/order/userorders', {
+            headers: {
+              Authorization: token
+            }
+          });
+          
+          const orders = response?.data?.data || [];
+          setOrderData(orders)
+        } catch (error) {
+          console.log("error fetching orders: ", error);
+          toast.error(
+            error.response?.data?.message || "Failed to fetch orders"
+          );
+        }
+      }
+      fetchOrders()
+    }, [])
+
   // login state after refresh
   useEffect(() => {
     if (!token && localStorage.getItem("token")) {
@@ -58,6 +84,7 @@ export const ProductProvider = ({ children }) => {
         toast,
         token,
         setToken,
+        orderData
       }}
     >
       {children}
