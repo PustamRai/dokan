@@ -5,9 +5,11 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { useProductContext } from "../context/productContext";
 import OrderSummary from "../components/OrderSummary";
 import { useNavigate } from "react-router-dom";
+import { useCartContext } from "../context/cartContext";
 
 function Cart() {
-  const { currency, cartData, products } = useProductContext();
+  const { currency, products } = useProductContext();
+  const { cartData } = useCartContext()
   const navigate = useNavigate();
 
   // Helper function to find product details from the itemId

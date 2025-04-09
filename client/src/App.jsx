@@ -13,11 +13,13 @@ import PlaceOrder from "./pages/PlaceOrder";
 import Orders from "./pages/Order";
 import PageNotFound from "./pages/PageNotFound";
 import { ProductProvider } from "./context/productContext";
+import { CartProvider } from "./context/cartContext";
 
 function App() {
   return (
     <div className="bg-gray-200">
       <ProductProvider>
+        <CartProvider>
         <Router>
           <Routes>
             <Route path="/" element={<Layout />}>
@@ -35,6 +37,7 @@ function App() {
             </Route>
           </Routes>
         </Router>
+        </CartProvider>
       </ProductProvider>
     </div>
   );

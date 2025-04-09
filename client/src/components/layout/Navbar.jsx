@@ -3,13 +3,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { BiSearch, BiUser, BiMenu, BiX } from "react-icons/bi";
 import { PiShoppingCartDuotone } from "react-icons/pi";
 import { useProductContext } from "../../context/productContext";
+import { useCartContext } from "../../context/cartContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { showSearch, setShowSearch } = useProductContext();
   const navigate = useNavigate();
 
-  const { token, setToken, cartCount } = useProductContext();
+  const { token, setToken } = useProductContext();
+  const { cartCount } = useCartContext()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

@@ -3,9 +3,11 @@ import { FaRegCreditCard } from "react-icons/fa6";
 import { IoMdCash } from "react-icons/io";
 import OrderSummary from "../components/OrderSummary";
 import { useNavigate } from "react-router-dom";
+import { useProductContext } from "../context/productContext";
 
 export default function OrderPage() {
-  // Payment method state (already implemented)
+  const { API, toast } = useProductContext()
+  
   const [paymentMethod, setPaymentMethod] = useState("card");
   const navigate = useNavigate();
 
@@ -35,13 +37,19 @@ export default function OrderPage() {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     console.log("Payment method:", paymentMethod);
 
+    try {
+      const response = await API.post('/api/order/place-order')
+    } catch (error) {
+      console.log('error in placing order: ', error)
+      toast.error(error.response?.data?.message || 'failed in placing order')
+    }
+
     navigate("/orders");
-    // Add your form submission logic here (API call, validation, etc.)
   };
 
   return (

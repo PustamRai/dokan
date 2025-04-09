@@ -4,9 +4,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { IoIosStar } from "react-icons/io";
 import RelatedProducts from "../components/RelatedProducts";
 import DescriptionAndReview from "../components/DescriptionReview";
+import { useCartContext } from "../context/cartContext";
 
 function SingleProduct() {
-  const { products, addToCart, token } = useProductContext();
+  const { products,  token } = useProductContext();
+  const { addToCart } = useCartContext()
   const { productId } = useParams();
   const [productData, setProductData] = useState(null);
   const navigate = useNavigate()

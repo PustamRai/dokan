@@ -1,11 +1,12 @@
 import React from "react";
-import { useProductContext } from "../context/productContext";
+import { useCartContext } from "../context/cartContext";
 
-function OrderSummary() {
-  const { currency, orderSummary } = useProductContext();
+
+function OrderSummary() {  
+  const { orderSummary, currency } = useCartContext()
 
   // Use orderSummary values from context
-  const { subtotal, shipping, tax, total } = orderSummary;
+  const { subtotal, shipping, tax, totalCartAmount } = orderSummary;
 
   return (
     <div>
@@ -39,7 +40,7 @@ function OrderSummary() {
                 <span>Total</span>
                 <span>
                   {currency}
-                  {total.toFixed(2)}
+                  {totalCartAmount.toFixed(2)}
                 </span>
               </div>
             </div>

@@ -20,7 +20,7 @@ function SignUp() {
       const { token } = response?.data?.data
 
       localStorage.setItem('token', token)
-      navigate('/')
+      navigate('/login')
       toast.success(response?.data?.message)
       setName('')
       setEmail('')
