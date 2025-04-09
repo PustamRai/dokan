@@ -17,7 +17,6 @@ export const CartProvider = ({ children }) => {
   const shippingFee = 5.99;
   const taxRate = 0.07;
 
-  console.log('cart items: ', cartItems)
 
   // cart data fetch
   useEffect(() => {

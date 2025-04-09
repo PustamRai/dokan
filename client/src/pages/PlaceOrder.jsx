@@ -3,11 +3,11 @@ import { FaRegCreditCard } from "react-icons/fa6";
 import { IoMdCash } from "react-icons/io";
 import OrderSummary from "../components/OrderSummary";
 import { useNavigate } from "react-router-dom";
-import { useProductContext } from "../context/productContext";
+import { useCartContext } from "../context/cartContext";
 
 export default function OrderPage() {
-  const { API, toast } = useProductContext()
-  
+  const { cartData, orderSummary, API, toast } = useCartContext();
+
   const [paymentMethod, setPaymentMethod] = useState("card");
   const navigate = useNavigate();
 
@@ -39,14 +39,46 @@ export default function OrderPage() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    console.log("Payment method:", paymentMethod);
+    
+    const token = localStorage.getItem("token");
+      if (!token) return;
+
+    if (!cartData || cartData.length === 0) {
+      toast.error("Your cart is empty");
+    }
+
+    // Create full address string from form data
+    const address = {
+      fullName: `${formData.firstName} ${formData.lastName}`,
+      email: formData.email,
+      street: formData.street,
+      city: formData.city,
+      state: formData.state,
+      zipcode: formData.zipcode,
+      phone: formData.phone,
+      country: "Nepal",
+    };
 
     try {
-      const response = await API.post('/api/order/place-order')
+      const response = await API.post(
+        "/api/order/place-order",
+        {
+          items: cartData,
+          amount: orderSummary.totalCartAmount,
+          address,
+          paymentMethod: paymentMethod === "cod" ? "Cash on Delivery" : "Card",
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      console.log("place order: ", response);
     } catch (error) {
-      console.log('error in placing order: ', error)
-      toast.error(error.response?.data?.message || 'failed in placing order')
+      console.log("error in placing order: ", error);
+      toast.error(error.response?.data?.message || "failed in placing order");
     }
 
     navigate("/orders");
