@@ -16,13 +16,13 @@ function Orders() {
 
       <div className="space-y-4">
         {orderData.map((order) => {
-          // console.log('inner order: ', order);
+          console.log('inner order: ', order);
           
           return (
             <>
               {order.items.map((item) => {
                 const product = getProductDetails(item.itemId);
-                // console.log('product: ', product);
+                console.log('product: ', product);
                 
                 if (!product) return null; // Skip rendering if product not found
                 
@@ -54,7 +54,8 @@ function Orders() {
                           <p className="text-gray-600">Quantity: {item.quantity}</p>
                           <p className="text-gray-600">Size: {item.size}</p>
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">Date: {order.updatedAt}</p>
+                        <p className="text-xs text-gray-500 mt-1">Date: {new Date(order.updatedAt).toDateString() }</p>
+                        <p className="text-xs text-gray-500 mt-1">Payment: {order.paymentMethod}</p>
 
                         {/* Status and Track Order */}
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-3">
