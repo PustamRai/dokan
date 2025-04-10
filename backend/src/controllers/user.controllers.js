@@ -11,6 +11,34 @@ const createToken = (_id) => {
   );
 };
 
+// @fetchUserData
+export const fetchUser = async (req, res) => {
+try {
+  const user = await UserModel.findById(req?.user?._id)
+  
+  if(!user) {
+    return res.status(404).json({
+      success: false,
+      message: "User not found",
+    });
+  }
+
+  return res.status(200)
+  .json({
+    success: true,
+    data: user,
+    message: 'User data fetched successfully'
+  })
+} catch (error) {
+  console.error("Error fetching user data", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
+      error: error.message,
+    });
+}
+}
+
 // @register route
 export const registerUser = async (req, res) => {
   try {

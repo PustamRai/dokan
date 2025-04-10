@@ -4,22 +4,22 @@ import { BiSearch, BiUser, BiMenu, BiX } from "react-icons/bi";
 import { PiShoppingCartDuotone } from "react-icons/pi";
 import { useProductContext } from "../../context/productContext";
 import { useCartContext } from "../../context/cartContext";
+import { useAuthContext } from "../../context/authContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { showSearch, setShowSearch } = useProductContext();
   const navigate = useNavigate();
-
-  const { token, setToken } = useProductContext();
+  
+  const { showSearch, setShowSearch } = useProductContext();
+  const { token, logout } = useAuthContext();
   const { cartCount } = useCartContext()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setToken("");
+  const logoutUser = () => {
+    logout()
     navigate("/");
   };
 
@@ -116,7 +116,7 @@ const Navbar = () => {
                 </button>
                 <button
                   className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors cursor-pointer"
-                  onClick={logout}
+                  onClick={logoutUser}
                 >
                   Logout
                 </button>

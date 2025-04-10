@@ -1,36 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
-import { useProductContext } from "../context/productContext";
+// import { useProductContext } from "../context/productContext";
+import { useAuthContext } from "../context/authContext"
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
   
-  const { API, toast, token, setToken } = useProductContext()
+  // const { API, toast, token, setToken } = useProductContext()
+  const { login, token } = useAuthContext()
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await API.post('/api/user/login', { email, password })
-      const { token } = response?.data?.data
-
-      if(response.data.success) {
-        setToken(token)
-        localStorage.setItem('token', token)
-      }
-
-      toast.success(response?.data?.message)
-      setEmail('')
-      setPassword('')
-    } catch (error) {
-      console.log("error in logIn: ", error)
-      toast.error(error.response?.data?.message || "User login failed")
-      setEmail('')
-      setPassword('')
-    }
+    await login({email, password})
   };
 
   useEffect(() => {

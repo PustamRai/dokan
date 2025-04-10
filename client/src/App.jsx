@@ -23,10 +23,12 @@ import {
   List,
   Order
 } from "./admin";
+import { AuthProvider } from "./context/authContext";
 
 function App() {
   return (
     <div className="bg-gray-200">
+      <AuthProvider>
       <ProductProvider>
         <CartProvider>
         <Router>
@@ -57,6 +59,7 @@ function App() {
         </Router>
         </CartProvider>
       </ProductProvider>
+      </AuthProvider>
     </div>
   );
 }
