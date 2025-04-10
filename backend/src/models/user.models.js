@@ -17,8 +17,13 @@ const userSchema = new Schema(
     },
     cartData: {
       type: Array,
-      default: {},
+      default: [],
     },
+    role: {
+      type: String,
+      enum: ['admin', 'customer'],
+      default: customer
+    }
   },
   {
     minimize: false,
