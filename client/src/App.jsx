@@ -15,6 +15,15 @@ import PageNotFound from "./pages/PageNotFound";
 import { ProductProvider } from "./context/productContext";
 import { CartProvider } from "./context/cartContext";
 
+// admin import
+import { 
+  AdminLayout,
+  Dashboard,
+  AddProduct,
+  List,
+  Order
+} from "./admin";
+
 function App() {
   return (
     <div className="bg-gray-200">
@@ -35,6 +44,15 @@ function App() {
               <Route path="/place-order" element={<PlaceOrder />} />
               <Route path="/orders" element={<Orders />} />
             </Route>
+
+            {/* admin routes */}
+            <Route path="/admin" element={<AdminLayout />}> 
+              <Route index element={<Dashboard />} />
+              <Route path="/admin/add-products" element={<AddProduct />} />
+              <Route path="/admin/list" element={<List />} />
+              <Route path="/admin/orders" element={<Order />} />
+            </Route>
+
           </Routes>
         </Router>
         </CartProvider>
