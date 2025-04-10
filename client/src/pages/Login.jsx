@@ -11,18 +11,17 @@ function Login() {
   // const { API, toast, token, setToken } = useProductContext()
   const { login, token } = useAuthContext()
 
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    await login({email, password})
-  };
-
   useEffect(() => {
     if(token) {
       navigate('/')
     }
   }, [token])
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login({email, password})
+  };
+  
 
   return (
     <div className="flex justify-center items-center min-h-screen  p-4">

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom"
-import { useProductContext } from "../context/productContext";
+import { useAuthContext } from "../context/authContext";
 
 
 function SignUp() {
@@ -9,30 +9,19 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
 
-  const { API, toast } = useProductContext()
+  const { signup, token } = useAuthContext()
   
-
+  useEffect(() => {
+    if(token) {
+      navigate('/login')
+    }
+  }, [token])
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await API.post('/api/user/register', { name, email, password })
-      const { token } = response?.data?.data
-
-      localStorage.setItem('token', token)
-      navigate('/login')
-      toast.success(response?.data?.message)
-      setName('')
-      setEmail('')
-      setPassword('')
-    } catch (error) {
-      console.log("error in signup: ", error)
-      toast.error(error.response?.data?.message || "User signup failed")
-      setName('')
-      setEmail('')
-      setPassword('')
-    }
+    await signup({ name, email, password})
   };
+
 
   return (
     <div className="flex justify-center items-center min-h-screen p-4">

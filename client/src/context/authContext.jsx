@@ -38,6 +38,21 @@ export const AuthProvider = ({ children }) => {
   //     console.log('Updated user: ', user);
   // }, [user]);
 
+  // register user
+  const signup = async (credentials) => {
+    try {
+      const response = await API.post("/api/user/register", credentials);
+      const { token, user } = response?.data?.data
+
+      setToken(token);
+      localStorage.setItem('token', token)
+      setUser(user)
+      toast.success('signup successfully')
+    } catch (error) {
+      console.log('error signup: ', error)
+      toast.error(error.response?.data?.message || 'signup failed')
+    }
+  }
 
   // login user
   const login = async (credentials) => {
@@ -45,8 +60,8 @@ export const AuthProvider = ({ children }) => {
       const response = await API.post("/api/user/login", credentials);
       const { token, user } = response?.data?.data;
 
-      localStorage.setItem('token', token)
       setToken(token);
+      localStorage.setItem('token', token)
       setUser(user);
       toast.success("logged in successfully");
     } catch (error) {
@@ -68,6 +83,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         token,
+        signup,
         login,
         logout
       }}
