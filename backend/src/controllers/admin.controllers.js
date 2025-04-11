@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { OrderModel } from "../models/order.models";
+import { OrderModel } from "../models/order.models.js";
 
 
 // get admin data

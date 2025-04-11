@@ -1,7 +1,9 @@
 import { Router } from "express"
 import { 
     adminLogin, 
-    getAdminData 
+    allOrders, 
+    getAdminData, 
+    updateStatus
 } from "../controllers/admin.controllers.js"
 import { adminAuth } from "../middlewares/adminAuth.middlewares.js"
 
@@ -12,5 +14,7 @@ adminRouter.post('/login', adminLogin)
 
 // protected routes
 adminRouter.get('/dashboard', adminAuth, getAdminData)
+adminRouter.post('/list', adminAuth, allOrders)
+adminRouter.post('/status', adminAuth, updateStatus)
 
 export default adminRouter
