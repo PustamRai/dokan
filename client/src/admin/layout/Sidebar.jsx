@@ -4,8 +4,18 @@ import { GoPlusCircle } from "react-icons/go";
 import { CiCircleList } from "react-icons/ci";
 import { FiShoppingBag } from "react-icons/fi";
 import { CiLogout } from "react-icons/ci";
+import { useAuthContext } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
+  const { logout } = useAuthContext()
+  const navigate = useNavigate()
+
+  const logOut = async () => {
+    await logout()
+    navigate('/admin/login')
+  }
+  
   return (
     <div className="w-[18%] min-h-screen border-r-2">
       <NavLink
@@ -57,6 +67,7 @@ function Sidebar() {
 
         <NavLink 
         className="mt-[335px] flex items-center gap-3 border border-gray-400 border-r-0 px-3 py-2 rounded-lg cursor-pointer hover:bg-pink-50"
+        onClick={() => logOut()}
         >
           <CiLogout className="w-5 h-5" />
           <p className="hidden md:block">Logout</p>

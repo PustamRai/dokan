@@ -1,4 +1,5 @@
 export { default as AdminLayout } from './layout/AdminLayout'
+export { default as AdminLogin } from './pages/AdminLogin'
 export { default as Dashboard } from './components/Dashboard'
 export { default as AddProduct } from './pages/AddProduct'
 export { default as List } from './pages/List'

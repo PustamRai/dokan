@@ -9,7 +9,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token") || "");
 
-
   // auto-login on refresh
   useEffect(() => {
     const fetchUser = async () => {
@@ -42,17 +41,17 @@ export const AuthProvider = ({ children }) => {
   const signup = async (credentials) => {
     try {
       const response = await API.post("/api/user/register", credentials);
-      const { token, user } = response?.data?.data
+      const { token, user } = response?.data?.data;
 
       setToken(token);
-      localStorage.setItem('token', token)
-      setUser(user)
-      toast.success('signup successfully')
+      localStorage.setItem("token", token);
+      setUser(user);
+      toast.success("signup successfully");
     } catch (error) {
-      console.log('error signup: ', error)
-      toast.error(error.response?.data?.message || 'signup failed')
+      console.log("error signup: ", error);
+      toast.error(error.response?.data?.message || "signup failed");
     }
-  }
+  };
 
   // login user
   const login = async (credentials) => {
@@ -61,7 +60,7 @@ export const AuthProvider = ({ children }) => {
       const { token, user } = response?.data?.data;
 
       setToken(token);
-      localStorage.setItem('token', token)
+      localStorage.setItem("token", token);
       setUser(user);
       toast.success("logged in successfully");
     } catch (error) {
@@ -70,13 +69,39 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // admin login
+  const adminLogin = async (credentials) => {
+    try {
+      const response = await API.post("/api/admin/login", credentials);
+      console.log('admin res: ', response)
+      const { token, user } = response?.data?.data;
+
+      if (user?.role === 'admin') {
+        setToken(token);
+        setUser(user);
+
+        // save token and user in local storage
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user))
+
+        toast.success("Admin login successfully");
+      } else {
+        toast.error("Unauthorized access: Not an admin");
+      }
+    } catch (error) {
+      console.error("Admin login error: ", error);
+      toast.error(error.response?.data?.message || "Admin login failed");
+    }
+  };
+
   // logout user
   const logout = () => {
-    localStorage.removeItem('token')
-    setToken('')
-    setUser(null)
-    toast.success('logged out successfully')
-  }
+    localStorage.removeItem("token");
+    localStorage.removeItem("user")
+    setToken("");
+    setUser(null);
+    toast.success("logged out successfully");
+  };
 
   return (
     <AuthContext.Provider
@@ -85,7 +110,8 @@ export const AuthProvider = ({ children }) => {
         token,
         signup,
         login,
-        logout
+        logout,
+        adminLogin,
       }}
     >
       {children}
