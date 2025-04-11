@@ -76,6 +76,7 @@ export const AuthProvider = ({ children }) => {
       console.log('admin res: ', response)
       const { token, user } = response?.data?.data;
 
+      console.log('user: ', user)
       if (user?.role === 'admin') {
         setToken(token);
         setUser(user);
@@ -93,6 +94,15 @@ export const AuthProvider = ({ children }) => {
       toast.error(error.response?.data?.message || "Admin login failed");
     }
   };
+  
+  // Load user on refresh
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+  
 
   // logout user
   const logout = () => {
