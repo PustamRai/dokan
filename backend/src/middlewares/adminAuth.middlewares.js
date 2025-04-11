@@ -11,7 +11,7 @@ export const adminAuth = (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        // console.log("token value: ", decoded)
+        // console.log("decoded value: ", decoded)
         if(decoded.role !== "admin") {
             return res.status(403)
             .json({ 
@@ -20,7 +20,8 @@ export const adminAuth = (req, res, next) => {
             });
         }
         
-        req.user = decoded
+        req.admin = decoded
+        // console.log('req admin: ', req.admin)
         next();
     } catch (error) {
         console.error("Invalid token", error);
