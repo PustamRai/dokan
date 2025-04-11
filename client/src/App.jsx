@@ -16,7 +16,16 @@ import { ProductProvider } from "./context/productContext";
 import { CartProvider } from "./context/cartContext";
 
 // admin import
-import { AdminLayout, AdminLogin, Dashboard, AddProduct, List, Order } from "./admin";
+import {
+  AdminLayout,
+  AdminLogin,
+  Dashboard,
+  AddProduct,
+  List,
+  Order,
+  ProtectedRoute,
+  Unathorized,
+} from "./admin";
 import { AuthProvider } from "./context/authContext";
 
 function App() {
@@ -27,8 +36,8 @@ function App() {
           <CartProvider>
             <Router>
               <Routes>
-                
-              <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/unauthorized" element={<Unathorized />} />
 
                 <Route path="/" element={<Layout />}>
                   <Route index element={<Home />} />
@@ -47,10 +56,15 @@ function App() {
                   <Route path="/orders" element={<Orders />} />
                 </Route>
 
-                {/* admin routes */}
-                {/* <Route path="/admin/login" element={<AdminLogin />} /> */}
-
-                <Route path="/admin" element={<AdminLayout />}>
+                {/* protect admin routes */}
+                <Route
+                  path="/admin"
+                  element={
+                    <ProtectedRoute allowedRoles={["admin"]}>
+                      <AdminLayout />
+                    </ProtectedRoute>
+                  }
+                >
                   <Route index element={<Dashboard />} />
                   <Route path="add-products" element={<AddProduct />} />
                   <Route path="list" element={<List />} />
