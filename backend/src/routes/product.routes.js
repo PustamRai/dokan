@@ -10,7 +10,7 @@ import { adminAuth } from "../middlewares/adminAuth.middlewares.js"
 
 const productRouter = Router()
 
-productRouter.get("/list", adminAuth, listProducts)
+productRouter.get("/list", listProducts)
 productRouter.post("/add", adminAuth, upload.single("image"), addProduct)
 productRouter.post("/remove/:productId", adminAuth, removeProduct)
 productRouter.post("/single/:productId", singleProduct)
