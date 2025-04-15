@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { BiSearch, BiUser, BiMenu, BiX } from "react-icons/bi";
 import { PiShoppingCartDuotone } from "react-icons/pi";
@@ -8,18 +8,25 @@ import { useAuthContext } from "../../context/authContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
   
   const { showSearch, setShowSearch } = useProductContext();
   const { token, logout } = useAuthContext();
-  const { cartCount } = useCartContext()
+  const { cartCount } = useCartContext();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   const logoutUser = () => {
-    logout()
+    logout();
+    setIsDropdownOpen(false);
     navigate("/");
   };
 
@@ -85,9 +92,12 @@ const Navbar = () => {
           </button>
         </NavLink>
 
-        <div className="relative group/dropdown">
+        <div className="relative">
           {token ? (
-            <button className="p-1 hover:text-gray-500 transition-colors hover:cursor-pointer">
+            <button 
+              className="p-1 hover:text-gray-500 transition-colors hover:cursor-pointer"
+              onClick={toggleDropdown}
+            >
               <BiUser size={20} />
             </button>
           ) : (
@@ -101,16 +111,19 @@ const Navbar = () => {
             </NavLink>
           )}
 
-          {/* Dropdown Menu */}
-          {token && (
-            <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50opacity-0 invisible group-hover/dropdown:visible group-hover/dropdown:opacity-100 hover:visible hover:opacity-100 transition-all duration-300 ease-in-out">
+          {/* Dropdown Menu - now visible based on state, not hover */}
+          {token && isDropdownOpen && (
+            <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
               <div className="py-1">
                 <button className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors cursor-pointer">
                   My Profile
                 </button>
                 <button
                   className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors cursor-pointer"
-                  onClick={() => navigate("/orders")}
+                  onClick={() => {
+                    navigate("/orders");
+                    setIsDropdownOpen(false);
+                  }}
                 >
                   Orders
                 </button>
