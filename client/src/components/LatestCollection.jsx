@@ -3,7 +3,7 @@ import ProductItem from "./ProductItem";
 import { useProductContext } from "../context/productContext";
 
 function LatestCollection() {
-  const { products } = useProductContext();
+  const { products, loading } = useProductContext();
   const [latestProducts, setLatestProducts] = useState([]);
 
   useEffect(() => {
@@ -19,18 +19,24 @@ function LatestCollection() {
         exercitationem nisi eius obcaecati, perferendis fuga neque dolorum.2
       </p>
 
-      {/* rendering product items */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
-        {latestProducts.map((product) => (
-          <ProductItem
-            key={product._id}
-            id={product._id}
-            image={product.image}
-            description={product.description}
-            price={product.price}
-          />
-        ))}
-      </div>
+      {loading ? (
+        <div className="text-center py-10 text-gray-500 font-semibold text-lg">
+          Loading products...
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
+          {/* rendering product items */}
+          {latestProducts.map((product) => (
+            <ProductItem
+              key={product._id}
+              id={product._id}
+              image={product.image}
+              description={product.description}
+              price={product.price}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
