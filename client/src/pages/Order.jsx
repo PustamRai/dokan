@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { useProductContext } from "../context/productContext";
+import { API } from "../api/API";
+import { useAuthContext } from "../context/authContext";
 
 function Orders() {
   const { products, orderData, currency } = useProductContext();
+  const { token } = useAuthContext()
+  const [trackedStatus, setTrackedStatus] = useState({});
 
   const getProductDetails = (itemId) => {
     return products.find((product) => product._id === itemId);
+  };
+
+  // tracking order status
+  const handleTrackOrder = async (orderId) => {
+    try {
+      const response = await API.get(`api/order/order-status/${orderId}`, {
+        headers: {
+          Authorization: token
+        }
+      });
+      
+      console.log('track order: ', response.data)
+
+      const latestStatus = response.data.data.status;
+      setTrackedStatus((prev) => ({ ...prev, [orderId]: latestStatus }));
+    } catch (err) {
+      console.error("Failed to track order", err);
+    }
   };
 
   return (
@@ -16,13 +38,11 @@ function Orders() {
 
       <div className="space-y-4">
         {orderData.map((order) => {
-          console.log('inner order: ', order);
           
           return (
             <>
               {order.items.map((item) => {
                 const product = getProductDetails(item.itemId);
-                console.log('product: ', product);
                 
                 if (!product) return null; // Skip rendering if product not found
                 
@@ -62,10 +82,13 @@ function Orders() {
                           <div className="flex items-center">
                             <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
                             <span className="text-xs text-green-600">
-                              {order.status}
+                            {trackedStatus[order._id] || order.status}
                             </span>
                           </div>
-                          <button className="text-xs font-medium bg-gray-300 p-2 rounded-sm text-black hover:text-gray-900 mt-2 sm:mt-0 cursor-pointer">
+                          <button 
+                          className="text-xs font-medium bg-gray-300 p-2 rounded-sm text-black hover:text-gray-900 mt-2 sm:mt-0 cursor-pointer"
+                          onClick={() => handleTrackOrder(order._id)}
+                          >
                             Track Order
                           </button>
                         </div>
