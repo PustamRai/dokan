@@ -60,6 +60,7 @@ export const AuthProvider = ({ children }) => {
       const { token, user } = response?.data?.data;
 
       setToken(token);
+      setUser(user)
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user))
       toast.success("logged in successfully");
