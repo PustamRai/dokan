@@ -10,9 +10,9 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  
+
   const { showSearch, setShowSearch } = useProductContext();
-  const { token, logout } = useAuthContext();
+  const { token, logout, user } = useAuthContext();
   const { cartCount } = useCartContext();
 
   const toggleMenu = () => {
@@ -93,11 +93,14 @@ const Navbar = () => {
 
         <div className="relative">
           {token ? (
-            <button 
+            <button
               className="p-1 hover:text-gray-500 transition-colors hover:cursor-pointer"
               onClick={toggleDropdown}
             >
-              <BiUser size={20} />
+              <div className="flex flex-col items-center">
+                <BiUser size={20} />
+                <p className="text-blue-400 text-sm">{user?.name}</p>
+              </div>
             </button>
           ) : (
             <NavLink to="/login">
