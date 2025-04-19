@@ -1,33 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useProductContext } from "../../context/productContext";
 
-
-function AdminProductList() {
-  const { API, toast, loading  } = useProductContext()
-  const [productList, setProductList] = useState([])
+function ProductList() {
+  const { API, toast, loading } = useProductContext();
+  const [productList, setProductList] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await API.get("/api/product/list");
-        setProductList(response.data.data)
-      console.log('lis : ', response)
+        setProductList(response.data.data);
+        console.log("lis : ", response);
       } catch (err) {
         console.log("Product fetch error: ", err);
         toast.error("Failed to fetch products");
       }
     };
 
-    fetchProducts()
-  }, [])
+    fetchProducts();
+  }, []);
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">Admin - Product List</h2>
       {loading ? (
         <p className="text-center py-10 text-gray-500 font-semibold text-lg">
-        Loading products...
-      </p>
+          Loading products...
+        </p>
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full border border-gray-200 text-sm">
@@ -66,4 +65,4 @@ function AdminProductList() {
   );
 }
 
-export default AdminProductList;
+export default ProductList;

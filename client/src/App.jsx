@@ -21,8 +21,8 @@ import {
   AdminLogin,
   Dashboard,
   AddProduct,
-  List,
-  Order,
+  ProductList,
+  OrderLists,
   ProtectedRoute,
   Unathorized,
 } from "./admin";
@@ -67,8 +67,8 @@ function App() {
                 >
                   <Route index element={<Dashboard />} />
                   <Route path="add-products" element={<AddProduct />} />
-                  <Route path="list" element={<List />} />
-                  <Route path="orders" element={<Order />} />
+                  <Route path="list" element={<ProductList />} />
+                  <Route path="orders" element={<OrderLists />} />
                 </Route>
               </Routes>
             </Router>
