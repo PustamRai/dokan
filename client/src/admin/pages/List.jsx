@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useProductContext } from "../../context/productContext";
 
 
 function AdminProductList() {
-  const { API, toast, products, loading  } = useProductContext()
+  const { API, toast, loading  } = useProductContext()
+  const [productList, setProductList] = useState([])
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        await API.get("/api/product/list");
-        toast.success('admin product list')
+        const response = await API.get("/api/product/list");
+        setProductList(response.data.data)
+      console.log('lis : ', response)
       } catch (err) {
         console.log("Product fetch error: ", err);
         toast.error("Failed to fetch products");
@@ -40,7 +42,7 @@ function AdminProductList() {
               </tr>
             </thead>
             <tbody>
-              {products.map((product, index) => (
+              {productList.map((product, index) => (
                 <tr key={product._id} className="hover:bg-gray-50">
                   <td className="p-2 border">{index + 1}</td>
                   <td className="p-2 border">
