@@ -109,13 +109,6 @@ npm install
 npm run dev
 ```
 
-### 🔐 Admin Credentials
-Use the following credentials to log in as an admin:
-```
-📧 Email: admin@example.com
-🔐 Password: admin123
-```
-
 ## ⚡ Features
 
 ### 👤 User Side
