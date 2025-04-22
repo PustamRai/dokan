@@ -72,7 +72,7 @@ This is a full-fledged **E-Commerce Web Application** built using the **MERN Sta
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone (https://github.com/PustamRai/dokan/)
+git clone https://github.com/PustamRai/dokan.git 
 ```
 
 ### 2️⃣ Backend Setup
