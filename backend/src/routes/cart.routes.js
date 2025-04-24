@@ -2,7 +2,7 @@ import { Router } from "express"
 import { 
     addToCart, 
     getUserCart, 
-    updateCart 
+    updateCart,
 } from "../controllers/cart.controllers.js"
 import { authUser } from "../middlewares/auth.middlewares.js"
 

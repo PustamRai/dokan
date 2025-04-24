@@ -137,6 +137,7 @@ export const CartProvider = ({ children }) => {
         toast,
         cartData,
         orderSummary, 
+        setCartData
       }}
     >
       {children}

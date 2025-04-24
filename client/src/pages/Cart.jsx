@@ -8,13 +8,26 @@ import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../context/cartContext";
 
 function Cart() {
-  const { currency, products } = useProductContext();
-  const { cartData } = useCartContext()
+  const { currency, products, toast } = useProductContext();
+  const { cartData, setCartData } = useCartContext()
   const navigate = useNavigate();
 
   // Helper function to find product details from the itemId
   const getProductDetails = (itemId) => {
     return products.find((product) => product._id === itemId);
+  };
+
+   // Remove item from cart
+   const removeCartItem = (pid) => {
+    try {
+      let myCart = [...cartData];
+      let index = myCart.findIndex((item) => item._id === pid);
+      myCart.splice(index, 1);
+      setCartData(myCart);
+      toast.success("Item removed successfully.");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -50,6 +63,7 @@ function Cart() {
                   // Get product details based on itemId
                   const product = getProductDetails(item.itemId);
 
+                  console.log('product: ', product)
                   return (
                     <div
                       key={item.itemId || index}
@@ -123,7 +137,7 @@ function Cart() {
                             ).toFixed(2)}
                           </span>
                           <button
-                            onClick={() => removeItem()}
+                            onClick={() => removeCartItem(item.itemId)}
                             className="ml-4 text-red-500 hover:text-red-700"
                           >
                             <FaRegTrashAlt size={18} />
