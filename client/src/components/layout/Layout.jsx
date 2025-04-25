@@ -8,7 +8,7 @@ function Layout() {
     <>
       <Navbar />
       <main
-      className="min-h-screen px-3 md:px-32 bg-gray-200"
+      className="min-h-screen px-3 md:px-32 bg-gray-200 max-w-[1400px] flex justify-between mx-auto"
       >
         <Outlet />
       </main>

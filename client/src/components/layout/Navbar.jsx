@@ -29,7 +29,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full py-4 px-3 md:px-32 flex md:flex-col items-center justify-between bg-gray-50 shadow-sm space-y-2">
+    <nav className="w-full py-4 px-3 md:px-32 flex md:flex-col items-center justify-between bg-gray-50 shadow-sm space-y-2 max-w-[1400px] mx-auto">
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center space-x-8">
         <div className="flex gap-2 text-sm space-x-3">
