@@ -7,7 +7,11 @@ function Footer() {
         <p>&copy; {new Date().getFullYear()} Dokan. All rights reserved.</p>
         <p className="text-[10px]">
           Designed & Developed by:{" "}
-          <a href="https://www.linkedin.com/in/pustamrai">
+          <a
+            href="https://www.linkedin.com/in/pustamrai"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {" "}
             <b className="underline hover:no-underline cursor-pointer">
               Pustam Rai
