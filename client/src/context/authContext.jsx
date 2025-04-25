@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
         setUser(data);
       } catch (error) {
         console.log("error fetching user: ", error);
-        toast.error(error.response?.data?.message || "failed fetching user");
+        // toast.error(error.response?.data?.message || "failed fetching user");
       }
     };
 

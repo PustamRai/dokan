@@ -35,9 +35,9 @@ export const CartProvider = ({ children }) => {
         setCartData(data)
       } catch (error) {
         console.log("error in fetching cart data: ", error);
-        toast.error(
-          error.response?.data?.message || "failed to fetch cart data"
-        );
+        // toast.error(
+        //   error.response?.data?.message || "failed to fetch cart data"
+        // );
       }
     };
 

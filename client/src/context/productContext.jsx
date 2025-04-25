@@ -23,7 +23,7 @@ export const ProductProvider = ({ children }) => {
         const allProducts = response?.data?.data || [];
 
         setProducts(allProducts);
-        toast.success(response?.data?.message);
+        // toast.success(response?.data?.message);
       } catch (error) {
         console.log("error fetching products: ", error);
         toast.error(
@@ -55,9 +55,9 @@ export const ProductProvider = ({ children }) => {
           setOrderData(orders)
         } catch (error) {
           console.log("error fetching orders: ", error);
-          toast.error(
-            error.response?.data?.message || "Failed to fetch orders"
-          );
+          // toast.error(
+          //   error.response?.data?.message || "Failed to fetch orders"
+          // );
         }
       }
       fetchOrders()
