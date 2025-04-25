@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { API } from "../../api/API";
 import { useAuthContext } from "../../context/authContext";
 import { useProductContext } from "../../context/productContext";
+import toast from "react-hot-toast";
 
 const AddProduct = () => {
-  const { token, toast } = useAuthContext();
-  const { loading } = useProductContext()
+  const { token } = useAuthContext();
+  const { setLoading, loading } = useProductContext()
 
   const [formData, setFormData] = useState({
     name: "",
@@ -66,6 +67,7 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
 
     try {
       // Validate inputs
@@ -78,6 +80,7 @@ const AddProduct = () => {
         !formData.image
       ) {
         toast.error("Please fill in all fields");
+        setLoading(false);
         return
       }
 
@@ -97,10 +100,7 @@ const AddProduct = () => {
         },
       });
 
-      console.log('admin add prod: ', response)
-
       if (response?.data?.success) {
-        console.log('res data: ', response?.data?.success)
         toast.success(response?.data?.message || "Product added successfully!");
         // Reset form
         setFormData({
@@ -114,13 +114,15 @@ const AddProduct = () => {
         });
         setPreviewImage("");
       } 
-      // else {
-      //   toast.error(response?.data?.message || "Failed to add product");
-      // }
+      else {
+        toast.error("Failed to add product");
+      }
     } catch (error) {
-      console.log("error in adding products: ", error.message)
+      console.log("error in adding products: ", error)
       toast.error(error.response?.data?.message || "An error occurred while adding the product")
-    } 
+    } finally {
+      setLoading(false)
+    }
   };
 
   return (
@@ -279,7 +281,7 @@ const AddProduct = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
           >
             {loading ? "Adding Product..." : "Add Product"}
           </button>

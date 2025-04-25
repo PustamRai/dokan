@@ -75,6 +75,7 @@ export const ProductProvider = ({ children }) => {
       value={{
         products,
         loading,
+        setLoading,
         currency,
         search,
         setSearch,
