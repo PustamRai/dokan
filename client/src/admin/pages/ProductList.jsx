@@ -14,8 +14,6 @@ function ProductList() {
       try {
         const response = await API.get("/api/product/list");
 
-        console.log("product list: ", response.data);
-
         setProductList(response.data.data);
       } catch (err) {
         console.log("Product fetch error: ", err);
@@ -37,8 +35,6 @@ function ProductList() {
           },
         }
       );
-
-      console.log("del res: ", response.data);
 
       setProductList((prevProduct) =>
         prevProduct.filter((item) => item._id !== productId)
@@ -91,10 +87,12 @@ function ProductList() {
                   <td className="p-2 border">{product.category}</td>
                   <td className="p-2 border">Rs. {product.price}</td>
                   <td className="p-2 border">{product.sizes}</td>
-                  <td className="p-2 border bg-red-200  hover:bg-red-300">
+                  <td 
+                  className="p-2 border bg-red-200  hover:bg-red-300 cursor-pointer"
+                  onClick={() => removeProductItem(product._id)}
+                  >
                     <div
                       className="flex items-center justify-center"
-                      onClick={() => removeProductItem(product._id)}
                     >
                       <FaRegTrashAlt />
                     </div>
