@@ -28,9 +28,14 @@ export default function Hero() {
               </p>
               
               <div className="mt-8 flex items-center gap-4">
+                <Link
+                to='/collection'
+                >
                 <button className="rounded-full px-6 py-3 bg-gray-900 text-white font-medium hover:bg-gray-700 transition-all duration-150 ease-in cursor-pointer">
                   Explore Now
                 </button>
+                </Link>
+                
                 
                 <Link 
                 to='/collection'
