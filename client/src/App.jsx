@@ -28,7 +28,7 @@ import { AuthProvider } from "./context/authContext";
 
 function App() {
   return (
-    <div className="bg-gray-200">
+    <div>
       <AuthProvider>
         <ProductProvider>
           <CartProvider>

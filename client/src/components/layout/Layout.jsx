@@ -8,7 +8,7 @@ function Layout() {
     <>
       <Navbar />
       <main
-      className="min-h-screen px-3 md:px-32"
+      className="min-h-screen px-3 md:px-32 bg-gray-200"
       >
         <Outlet />
       </main>
