@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useProductContext } from "../../context/productContext";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { useAuthContext } from "../../context/authContext";
 
 function ProductList() {
   const { API, toast, loading } = useProductContext();
+  const { token } = useAuthContext();
+
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await API.get("/api/product/list");
+
+        console.log("product list: ", response.data);
+
         setProductList(response.data.data);
-        console.log("lis : ", response);
       } catch (err) {
         console.log("Product fetch error: ", err);
         toast.error("Failed to fetch products");
@@ -19,6 +25,32 @@ function ProductList() {
 
     fetchProducts();
   }, []);
+
+  // remove admin product list
+  const removeProductItem = async (productId) => {
+    try {
+      const response = await API.post(`/api/admin/removeProductItem/${productId}`,
+        {},
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      console.log("del res: ", response.data);
+
+      setProductList((prevProduct) =>
+        prevProduct.filter((item) => item._id !== productId)
+      );
+      toast.success(response?.data?.message);
+    } catch (error) {
+      console.log("error removing product items: ", error);
+      toast.error(
+        error.response?.data?.message || "failed to remove product items"
+      );
+    }
+  };
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
@@ -38,11 +70,15 @@ function ProductList() {
                 <th className="p-2 border">Category</th>
                 <th className="p-2 border">Price</th>
                 <th className="p-2 border">Size</th>
+                <th className="p-2 border">Delete</th>
               </tr>
             </thead>
             <tbody>
               {productList.map((product, index) => (
-                <tr key={product._id} className="hover:bg-gray-50">
+                <tr
+                  key={product._id}
+                  className="hover:bg-gray-50 transition-all duration-150 ease-in-out"
+                >
                   <td className="p-2 border">{index + 1}</td>
                   <td className="p-2 border">
                     <img
@@ -55,6 +91,14 @@ function ProductList() {
                   <td className="p-2 border">{product.category}</td>
                   <td className="p-2 border">Rs. {product.price}</td>
                   <td className="p-2 border">{product.sizes}</td>
+                  <td className="p-2 border bg-red-200  hover:bg-red-300">
+                    <div
+                      className="flex items-center justify-center"
+                      onClick={() => removeProductItem(product._id)}
+                    >
+                      <FaRegTrashAlt />
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>

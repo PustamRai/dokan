@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { OrderModel } from "../models/order.models.js";
+import { ProductModel } from "../models/product.models.js";
 
 
 // get admin data
@@ -108,3 +109,32 @@ export const updateOrderStatus = async (req, res) => {
     });
   }
 };
+
+export const removeProductItem = async (req, res) => {
+  const { productId } = req.params
+
+  try {
+    const product = await ProductModel.findById(productId)
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "product not found",
+      });
+    }
+  
+    const deleteProductItem = await ProductModel.findByIdAndDelete(productId)
+  
+    return res.status(200).json({
+      success: true,
+      data: deleteProductItem,
+      message: "product deleted successfully",
+    });
+  } catch (error) {
+    console.log("failed to delete product items: ", error);
+    return res.status(500).json({
+      success: false,
+      message: "failed to delete product",
+      error: error.message,
+    });
+  }
+}

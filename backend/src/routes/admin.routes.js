@@ -3,7 +3,8 @@ import {
     adminLogin, 
     allOrders, 
     getAdminData, 
-    updateOrderStatus
+    updateOrderStatus,
+    removeProductItem
 } from "../controllers/admin.controllers.js"
 import { adminAuth } from "../middlewares/adminAuth.middlewares.js"
 
@@ -15,6 +16,7 @@ adminRouter.post('/login', adminLogin)
 // protected routes
 adminRouter.get('/dashboard', adminAuth, getAdminData)
 adminRouter.get('/list', adminAuth, allOrders)
+adminRouter.post('/removeProductItem/:productId', adminAuth, removeProductItem)
 adminRouter.post('/order/:id/status', adminAuth, updateOrderStatus)
 
 export default adminRouter

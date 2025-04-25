@@ -94,6 +94,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+
   // Load user on refresh
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
