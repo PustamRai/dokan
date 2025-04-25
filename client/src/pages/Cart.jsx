@@ -18,7 +18,7 @@ function Cart() {
   };
 
    // Remove item from cart
-   const removeCartItem = (pid) => {
+  const removeCartItem = (pid) => {
     try {
       let myCart = [...cartData];
       let index = myCart.findIndex((item) => item._id === pid);
@@ -63,7 +63,7 @@ function Cart() {
                   // Get product details based on itemId
                   const product = getProductDetails(item.itemId);
 
-                  console.log('product: ', product)
+                  // console.log('product: ', product)
                   return (
                     <div
                       key={item.itemId || index}
@@ -72,17 +72,17 @@ function Cart() {
                       {/* Product Info */}
                       <div className="col-span-1 md:col-span-6 flex items-center mb-4 md:mb-0">
                         <img
-                          src={product.image}
-                          alt={product.name}
+                          src={product?.image}
+                          alt={product?.name}
                           className="w-16 h-16 object-cover rounded"
                         />
                         <div className="ml-4">
                           <h3 className="font-medium text-gray-800">
-                            {product.name}
+                            {product?.name}
                           </h3>
                           <p className="text-gray-500 text-sm md:hidden">
                             {currency}
-                            {product.price}
+                            {product?.price}
                           </p>
                           {item.size && (
                             <p className="text-gray-500 text-xs">
@@ -122,7 +122,7 @@ function Cart() {
                         <span className="md:hidden text-gray-500">Price:</span>
                         <span>
                           {currency}
-                          {product.price?.toFixed(2) || "0.00"}
+                          {product?.price?.toFixed(2) || "0.00"}
                         </span>
                       </div>
 
@@ -133,7 +133,7 @@ function Cart() {
                           <span className="font-medium">
                             {currency}
                             {(
-                              (product.price || 0) * (item.quantity || 0)
+                              (product?.price || 0) * (item.quantity || 0)
                             ).toFixed(2)}
                           </span>
                           <button
@@ -159,7 +159,7 @@ function Cart() {
           </div>
 
           {/* Order Summary */}
-          <div className=" my-20">
+          <div className=" ">
             <div className="w-full">
               <OrderSummary />
               <div className="space-y-4">
