@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useProductContext } from "../context/productContext";
 
-function ProductItem({ id, image, description, price }) {
+function ProductCard({ id, image, description, price }) {
   const { loading, currency } = useProductContext();
 
   if (loading) {
@@ -38,4 +38,4 @@ function ProductItem({ id, image, description, price }) {
   );
 }
 
-export default ProductItem;
+export default ProductCard;

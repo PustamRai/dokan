@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useProductContext } from "../context/productContext";
-import ProductItem from "./ProductItem";
+import ProductCard from "./ProductCard";
 
 function RelatedProducts({ category }) {
   const { products, loading } = useProductContext();
@@ -27,7 +27,7 @@ function RelatedProducts({ category }) {
       {loading ? <div className="text-center">Loading products...</div> : ""}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 gap-y-6">
         {relatedProducts.map((product) => (
-          <ProductItem
+          <ProductCard
             key={product._id}
             id={product._id}
             image={product.image}

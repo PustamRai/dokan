@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useProductContext } from "../context/productContext";
-import ProductItem from "../components/ProductItem";
+import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
 
 function Collection() {
@@ -137,7 +137,7 @@ function Collection() {
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 gap-y-6">
               {sortedProducts.map((product) => (
-                <ProductItem
+                <ProductCard
                   key={product._id}
                   id={product._id}
                   image={product.image}
