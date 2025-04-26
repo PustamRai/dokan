@@ -12,11 +12,10 @@ function LatestCollection() {
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <h2 className="text-3xl font-bold text-center mb-2">Latest Collection</h2>
-      <p className="text-sm mb-2">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi aliquam
-        eaque odio rem ab quas repellat voluptatum ullam sit quasi dicta dolores
-        exercitationem nisi eius obcaecati, perferendis fuga neque dolorum.2
+      <h2 className="text-3xl font-bold text-center mb-2">Our Latest Collection</h2>
+      <p className="text-xs mb-2 md:text-lg">
+      Discover our newest arrivals, crafted with care and passion. From trendy styles to timeless classics, our latest collection has something for everyone.
+      Shop now and stay ahead with the freshest picks of the season! 
       </p>
 
       {loading ? (

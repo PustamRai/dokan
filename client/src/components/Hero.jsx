@@ -6,6 +6,11 @@ import { SiTicktick } from "react-icons/si";
 
 
 export default function Hero() {
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
   return (
     <div className="bg-gray-100 overflow-hidden">
       {/* Main hero container */}
@@ -13,10 +18,10 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[500px] lg:min-h-[600px]">
           
           {/* Left content area */}
-          <div className="col-span-1 lg:col-span-5 flex flex-col justify-center p-6 md:p-12 lg:pl-16 order-2 lg:order-1 border-l-2 border-t-2 border-gray-400">
+          <div className="col-span-1 lg:col-span-5 flex flex-col justify-center p-6 md:p-12 lg:pl-16 order-2 lg:order-1 border-2 border-gray-400">
             <div className="max-w-lg">
               <span className="inline-block px-4 py-1 mb-6 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold tracking-wide">
-                Spring Collection {new Date().getFullYear()}
+                {monthNames[new Date().getMonth()]} Collection {new Date().getFullYear()}
               </span>
               
               <h1 className="text-4xl md:text-5xl font-light text-gray-900 leading-tight">
