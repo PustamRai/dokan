@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useProductContext } from "../context/productContext";
 
-function ProductCard({ id, name, image, description, price }) {
+function ProductCard({ slug, name, image, description, price }) {
   const { loading, currency } = useProductContext();
 
   if (loading) {
@@ -15,7 +15,7 @@ function ProductCard({ id, name, image, description, price }) {
 
   return (
     <div className="bg-white rounded-xs overflow-hidden hover:shadow-xl transition-shadow duration-300">
-      <Link to={`/product/${id}`}>
+      <Link to={`/product/${slug}`}>
         <div className="overflow-hidden">
           <img
             src={image}

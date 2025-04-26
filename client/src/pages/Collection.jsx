@@ -142,7 +142,7 @@ function Collection() {
               {sortedProducts.map((product) => (
                 <ProductCard
                   key={product._id}
-                  id={product._id}
+                  slug={product.slug}
                   name={product.name}
                   image={product.image}
                   description={product.description}

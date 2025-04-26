@@ -10,6 +10,9 @@ function LatestCollection() {
     setLatestProducts(products.slice(0, 6));
   }, [products]);
 
+  console.log('prod: ', latestProducts)
+
+
   return (
     <div className="container mx-auto px-4 py-12">
       <h2 className="text-3xl font-bold text-center mb-2">Our Latest Collection</h2>
@@ -28,7 +31,7 @@ function LatestCollection() {
           {latestProducts.map((product) => (
             <ProductCard
               key={product._id}
-              id={product._id}
+              slug={product.slug}
               name={product.name}
               image={product.image}
               description={product.description}

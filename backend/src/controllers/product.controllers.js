@@ -1,10 +1,13 @@
 import { ProductModel } from "../models/product.models.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import slugify from "slugify";
 
 // functions for add product
 export const addProduct = async (req, res) => {
     try {
       const { name, description, price, category, sizes, bestseller } = req.body
+
+      const slug = slugify(name, { lower: true });
   
       if(!name || !description|| !price|| !category|| !sizes|| !bestseller ) {
         return res.status(400).json({
@@ -41,7 +44,8 @@ export const addProduct = async (req, res) => {
         bestseller: bestseller ? "true" : "false",
         sizes: JSON.parse(sizes),
         image: uploadResult.secure_url,
-        date: Date.now()
+        date: Date.now(),
+        slug // save slug in db
       })
 
       await product.save()
@@ -124,9 +128,9 @@ export const removeProduct = async (req, res) => {
 // functions for single product
 export const singleProduct = async (req, res) => {
   try {
-    const { productId } = req.params;
+    const { slug } = req.params;
 
-    const product = await ProductModel.findById(productId);
+    const product = await ProductModel.findOne({ slug })
     if (!product) {
       return res.status(404).json({
         success: false,

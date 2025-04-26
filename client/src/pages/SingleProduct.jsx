@@ -9,7 +9,7 @@ import { useCartContext } from "../context/cartContext";
 function SingleProduct() {
   const { products,  token } = useProductContext();
   const { addToCart } = useCartContext()
-  const { productId } = useParams();
+  const { slug } = useParams();
   const [productData, setProductData] = useState(null);
   const navigate = useNavigate()
 
@@ -19,22 +19,17 @@ function SingleProduct() {
 
   useEffect(() => {
     const fetchProductData = () => {
-      products.map((product) => {
-        if (product._id === productId) {
-          setProductData(product);
-          return null;
-        }
-      });
+      const prod = products.find((product) => product.slug === slug);
+      if (prod) {
+        setProductData(prod);
+      } else {
+        console.log("Product not found")
+      }
     };
-
+  
     fetchProductData();
-  }, [productId, products]);
+  }, [slug, products]);
 
-  if (!productData) {
-    return (
-      <div className="text-center py-10 text-gray-500">Loading product...</div>
-    );
-  }
 
   const handleAddCart = () => {
     if(token) {
@@ -134,7 +129,7 @@ function SingleProduct() {
 
     </div>
   ) : (
-    <div className="opacity-0"></div>
+    <div className="text-center py-10 text-gray-500 font-semibold text-lg">Product not found</div>
   );
 }
 

@@ -44,7 +44,7 @@ function App() {
                   <Route path="*" element={<PageNotFound />} />
                   <Route path="/collection" element={<Collection />} />
                   <Route
-                    path="/product/:productId"
+                    path="/product/:slug"
                     element={<SingleProduct />}
                   />
                   <Route path="/cart" element={<Cart />} />

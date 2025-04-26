@@ -1,10 +1,15 @@
 import mongoose, { Schema } from "mongoose";
+import slugify from "slugify"
 
 const productSchema = new Schema(
   {
     name: {
       type: String,
       required: true,
+    },
+    slug: {
+      type: String,
+      unique: true,
     },
     description: {
       type: String,
@@ -38,5 +43,14 @@ const productSchema = new Schema(
     timestamps: true,
   }
 );
+
+// Auto-create slug before saving
+productSchema.pre('save', function (next) {
+  if (this.isModified('name')) { // only if name changed
+    this.slug = slugify(this.name, { lower: true });
+  }
+  next();
+});
+
 
 export const ProductModel = mongoose.model("Product", productSchema);
