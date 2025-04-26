@@ -9,8 +9,8 @@ const SearchResult = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search); 
   // URLSearchParams = URLSearchParams to parse the query string
-  // location.search = Query string parameters ("?search=chai")
-  const search = queryParams.get("search") || "";
+  // location.search = Query string parameters ("?query=chai")
+  const search = queryParams.get("query") || "";
 
   const { products } = useProductContext();
 

@@ -9,7 +9,7 @@ function SearchBar() {
   // Handle the search action
   const handleSearch = () => {
     if (searchQuery.trim() !== "") {
-      navigate(`/search?search=${encodeURIComponent(searchQuery.trim())}`); // encodeURIComponent is used to handle spaces/special characters safely.
+      navigate(`/search?query=${encodeURIComponent(searchQuery.trim())}`); // encodeURIComponent is used to handle spaces/special characters safely.
     }
   };
 
