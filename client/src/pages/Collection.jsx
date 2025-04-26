@@ -115,6 +115,7 @@ function Collection() {
         <div className="flex-1">
           <div className="flex justify-between text-base sm:text-2xl mb-4">
             <h2>ALL COLLECTIONS</h2>
+
             {/* product sort */}
             <select
               value={sortOption}
@@ -128,6 +129,10 @@ function Collection() {
           </div>
 
           {/* mapping product */}
+          <div className="text-center py-10 text-gray-500 font-semibold text-lg">
+            {products.length === 0 ? "No products found" : ""}
+          </div>
+
           {loading ? (
             <div className="text-center py-10 text-gray-500 font-semibold text-lg">
               Loading products...
