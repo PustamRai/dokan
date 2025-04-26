@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useProductContext } from "../context/productContext";
 
-function ProductCard({ id, image, description, price }) {
+function ProductCard({ id, name, image, description, price }) {
   const { loading, currency } = useProductContext();
 
   if (loading) {
@@ -26,7 +26,8 @@ function ProductCard({ id, image, description, price }) {
       </Link>
 
       <div className="p-4">
-        <div className="flex flex-col">
+        <div className="flex flex-col space-y-0.5">
+          <span className="text-black text-lg">{name}</span>
           <span className="text-gray-700 text-sm">{description}</span>
           <span className="text-gray-800">
             {currency}

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useProductContext } from "../context/productContext";
 import ProductCard from "../components/ProductCard";
-import SearchBar from "../components/SearchBar";
 
 function Collection() {
   const { products, loading, search } = useProductContext();
@@ -61,7 +60,6 @@ function Collection() {
 
   return (
     <>
-      <SearchBar />
       <div className="flex flex-col md:flex-row gap-4 pt-10 ">
         {/* filter options */}
         <div className="min-w-56">
@@ -140,6 +138,7 @@ function Collection() {
                 <ProductCard
                   key={product._id}
                   id={product._id}
+                  name={product.name}
                   image={product.image}
                   description={product.description}
                   price={product.price}

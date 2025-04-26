@@ -29,6 +29,7 @@ function LatestCollection() {
             <ProductCard
               key={product._id}
               id={product._id}
+              name={product.name}
               image={product.image}
               description={product.description}
               price={product.price}
