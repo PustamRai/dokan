@@ -36,11 +36,11 @@ function Collection() {
     }
 
     // Apply search filter
-    if (search.trim() !== "") {
-      copyProducts = copyProducts.filter((product) =>
-        product.description.toLowerCase().includes(search.toLowerCase())
-      );
-    }
+    // if (search.trim() !== "") {
+    //   copyProducts = copyProducts.filter((product) =>
+    //     product.description.toLowerCase().includes(search.toLowerCase())
+    //   );
+    // }
 
     setFilterProducts(copyProducts);
   }, [category, search, products]);

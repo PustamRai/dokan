@@ -8,8 +8,6 @@ const ProductContext = createContext();
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
-  const [showSearch, setShowSearch] = useState(false);
   const [token, setToken] = useState("");
   const [orderData, setOrderData] = useState([])
 
@@ -77,10 +75,6 @@ export const ProductProvider = ({ children }) => {
         loading,
         setLoading,
         currency,
-        search,
-        setSearch,
-        showSearch,
-        setShowSearch,
         API,
         toast,
         token,

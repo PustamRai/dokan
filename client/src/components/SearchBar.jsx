@@ -1,36 +1,34 @@
-import React from "react";
-import { useProductContext } from "../context/productContext";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
-import { RxCross2 } from "react-icons/rx";
 
 function SearchBar() {
-  const { search, setSearch, showSearch, setShowSearch } = useProductContext();
-  
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
-  return showSearch ? (
-    <div className="flex items-center justify-center space-x-2 py-3 ">
-      <div className="relative w-full max-w-md">
-        <input
-          type="text"
-          placeholder="Search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full px-3 py-2 pr-10 border border-gray-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-black"
-        />
-        <BiSearch
-          className="absolute top-1/2 -translate-y-1/2 right-3 text-gray-400"
-          size={18}
-        />
-      </div>
+  // Handle the search action
+  const handleSearch = () => {
+    if (searchQuery.trim() !== "") {
+      navigate(`/search?search=${encodeURIComponent(searchQuery.trim())}`); // encodeURIComponent is used to handle spaces/special characters safely.
+    }
+  };
 
-      <div
-        onClick={() => setShowSearch(false)}
-        className="text-gray-500 hover:text-gray-700 cursor-pointer "
-      >
-        <RxCross2 size={24} />
-      </div>
+  return (
+    <div className="flex items-center gap-1 mx-4">
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)} // update search query
+        className="border border-gray-500 focus:outline-none focus:ring-1 focus:ring-black p-1 rounded-sm w-16 md:w-96"
+        placeholder="Search in Dokan"
+      />
+      <BiSearch
+        size={35}
+        onClick={handleSearch} // run search on click
+        className="border border-gray-500 px-2 py-2 rounded-sm cursor-pointer hover:bg-gray-200 transition-all duration-150 ease-in"
+      />
     </div>
-  ) : null
+  );
 }
 
 export default SearchBar;

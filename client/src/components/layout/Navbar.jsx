@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { BiSearch, BiUser, BiMenu, BiX } from "react-icons/bi";
+import { BiUser, BiMenu, BiX } from "react-icons/bi";
 import { PiShoppingCartDuotone } from "react-icons/pi";
-import { useProductContext } from "../../context/productContext";
 import { useCartContext } from "../../context/cartContext";
 import { useAuthContext } from "../../context/authContext";
+import SearchBar from "../SearchBar";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -63,18 +63,7 @@ const Navbar = () => {
         </div>
 
         {/* Search bar - centered */}
-        <div className="flex items-center gap-1 mx-4">
-          <input
-            type="text"
-            className="border border-gray-500 focus:outline-none focus:ring-1 focus:ring-black p-1 rounded-sm w-16 md:w-96"
-            placeholder="Search in Dokan"
-          />
-          <BiSearch 
-          size={35} 
-          className="border border-gray-500 px-2 py-2 rounded-sm cursor-pointer hover:bg-gray-200 transition-all duration-150 ease-in"
-          />
-
-        </div>
+        <SearchBar />
 
         {/* Icons */}
         <div className="flex items-center space-x-4">

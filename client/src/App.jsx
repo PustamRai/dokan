@@ -12,6 +12,8 @@ import Orders from "./pages/Order";
 import PageNotFound from "./pages/PageNotFound";
 import { ProductProvider } from "./context/productContext";
 import { CartProvider } from "./context/cartContext";
+import SearchResult from "./pages/SearchResult";
+
 
 // admin import
 import {
@@ -50,6 +52,9 @@ function App() {
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/place-order" element={<PlaceOrder />} />
                   <Route path="/orders" element={<Orders />} />
+
+                  {/* search result route */}
+                  <Route path="/search" element={<SearchResult />} />
                 </Route>
 
                 {/* protect admin routes */}
