@@ -4,7 +4,7 @@ import { FaPlus } from "react-icons/fa6";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useProductContext } from "../context/productContext";
 import OrderSummary from "../components/OrderSummary";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useCartContext } from "../context/cartContext";
 
 function Cart() {
@@ -43,9 +43,14 @@ function Cart() {
             {!cartData || cartData.length === 0 ? (
               <div className="bg-white rounded-lg p-6 shadow-md text-center">
                 <p className="text-gray-500">Your cart is empty</p>
-                <button className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
-                  Shop Now
-                </button>
+
+                <Link
+                to='/collection'
+                >
+                  <button className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 cursor-pointer">
+                    Shop Now
+                  </button>
+                </Link>
               </div>
             ) : (
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -152,9 +157,14 @@ function Cart() {
 
             {/* Continue Shopping */}
             <div className="mt-6">
-              <button className="flex items-center text-blue-600 hover:underline cursor-pointer">
-                Continue Shopping
-              </button>
+              <Link
+              to='/'
+              >
+                <button className="flex items-center text-blue-600 hover:underline cursor-pointer">
+                  Continue Shopping
+                </button>
+              </Link>
+              
             </div>
           </div>
 
