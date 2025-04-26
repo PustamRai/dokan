@@ -66,7 +66,7 @@ export const addProduct = async (req, res) => {
 // functions for list product
 export const listProducts = async (req, res) => {
   try {
-    const product = await ProductModel.find(({}))
+    const product = await ProductModel.find({}).sort({ date: -1 })
 
     if(product.length === 0) {
       return res.status(404).json({

@@ -31,7 +31,7 @@ function Orders() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4 font-sans">
+    <div className="max-w-4xl md:w-full mx-auto p-4 font-sans">
       <h1 className="text-xl text-center font-medium border-b pb-2 mb-6">
         MY ORDERS
       </h1>
@@ -79,7 +79,7 @@ function Orders() {
 
                         {/* Status and Track Order */}
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-3">
-                          <div className="flex items-center">
+                          <div className="flex items-center cursor-pointer">
                             <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
                             <span className="text-xs text-green-600">
                             {trackedStatus[order._id] || order.status}
