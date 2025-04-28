@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useProductContext } from "../context/productContext";
 import ProductCard from "../components/ProductCard";
+import LoadingSkeleton from "../components/LoadingSkeleton";
 
 function Collection() {
   const { products, loading, search } = useProductContext();
@@ -9,6 +10,7 @@ function Collection() {
   const [category, setCategory] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const [sortOption, setSortOption] = useState("relevant");
+
 
   const toggleCategory = (e) => {
     if (category.includes(e.target.value)) {
@@ -134,9 +136,7 @@ function Collection() {
           </div>
 
           {loading ? (
-            <div className="text-center py-10 text-gray-500 font-semibold text-lg">
-              Loading products...
-            </div>
+            <LoadingSkeleton count={4} />
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 gap-y-6">
               {sortedProducts.map((product) => (
