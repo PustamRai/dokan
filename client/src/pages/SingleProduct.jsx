@@ -5,13 +5,14 @@ import { IoIosStar } from "react-icons/io";
 import RelatedProducts from "../components/RelatedProducts";
 import DescriptionAndReview from "../components/DescriptionReview";
 import { useCartContext } from "../context/cartContext";
+import MetaData from "../components/metadata/MetaData";
 
 function SingleProduct() {
-  const { products,  token } = useProductContext();
-  const { addToCart } = useCartContext()
+  const { products, token } = useProductContext();
+  const { addToCart } = useCartContext();
   const { slug } = useParams();
   const [productData, setProductData] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [selectedSize, setSelectedSize] = useState(null);
 
@@ -23,25 +24,29 @@ function SingleProduct() {
       if (prod) {
         setProductData(prod);
       } else {
-        console.log("Product not found")
+        console.log("Product not found");
       }
     };
-  
+
     fetchProductData();
   }, [slug, products]);
 
-
   const handleAddCart = () => {
-    if(token) {
-
-      addToCart(productData._id, selectedSize)
+    if (token) {
+      addToCart(productData._id, selectedSize);
     } else {
-      navigate('/login')
+      navigate("/login");
     }
-  }
+  };
 
   return productData ? (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <MetaData
+        title={`${productData.name} - shop now | Dokan`}
+        description={`${productData.description.substring(0, 150)}`}
+        image={productData.image}
+      />
+
       <div className="flex flex-col md:flex-row gap-8">
         {/* Product Image - Responsive sizing */}
         <div className="w-full md:w-1/2 lg:w-1/2">
@@ -126,10 +131,11 @@ function SingleProduct() {
 
       {/*  Display Related Products */}
       <RelatedProducts category={productData.category} />
-
     </div>
   ) : (
-    <div className="text-center py-10 text-gray-500 font-semibold text-lg">Product not found</div>
+    <div className="text-center py-10 text-gray-500 font-semibold text-lg">
+      Product not found
+    </div>
   );
 }
 

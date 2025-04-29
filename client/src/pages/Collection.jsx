@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useProductContext } from "../context/productContext";
 import ProductCard from "../components/ProductCard";
 import LoadingSkeleton from "../components/LoadingSkeleton";
+import MetaData from "../components/metadata/MetaData";
 
 function Collection() {
   const { products, loading, search } = useProductContext();
@@ -10,7 +11,6 @@ function Collection() {
   const [category, setCategory] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const [sortOption, setSortOption] = useState("relevant");
-
 
   const toggleCategory = (e) => {
     if (category.includes(e.target.value)) {
@@ -63,6 +63,12 @@ function Collection() {
   return (
     <>
       <div className="flex flex-col md:flex-row gap-4 pt-10 ">
+        <MetaData
+          title="Explore Collections - Dokan"
+          description="Explore a wide range of collections at Dokan, handpicked for you."
+          keywords="dokan, online shopping, fashion, electronics"
+        />
+
         {/* filter options */}
         <div className="min-w-56">
           <p
