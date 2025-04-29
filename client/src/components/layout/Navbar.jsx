@@ -53,7 +53,7 @@ const Navbar = () => {
       <div className="w-full flex justify-between items-center">
         {/* Logo */}
         <div>
-          <NavLink to="/">
+        <NavLink to="/">
             <div className="flex items-center">
               <h1 className="text-xl font-bold">
                 DOKAN<span className="text-gray-400">.</span>
@@ -153,34 +153,12 @@ const Navbar = () => {
             </NavLink>
 
             <NavLink
-              to="/about"
-              className="flex flex-col items-center"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <p className="text-sm uppercase hover:text-gray-500 transition-colors">
-                About
-              </p>
-              <hr className="w-5 border-none h-[1.5px] bg-gray-700 hidden" />
-            </NavLink>
-
-            <NavLink
               to="/collection"
               className="flex flex-col items-center"
               onClick={() => setIsMenuOpen(false)}
             >
               <p className="text-sm uppercase hover:text-gray-500 transition-colors">
                 Collection
-              </p>
-              <hr className="w-5 border-none h-[1.5px] bg-gray-700 hidden" />
-            </NavLink>
-
-            <NavLink
-              to="/contact"
-              className="flex flex-col items-center"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <p className="text-sm uppercase hover:text-gray-500 transition-colors">
-                Contact
               </p>
               <hr className="w-5 border-none h-[1.5px] bg-gray-700 hidden" />
             </NavLink>
