@@ -76,12 +76,12 @@ export default function OrderPage() {
       );
 
       console.log("place order: ", response);
+      navigate("/orders");
+
     } catch (error) {
       console.log("error in placing order: ", error);
       toast.error(error.response?.data?.message || "failed in placing order");
     }
-
-    navigate("/orders");
   };
 
   return (

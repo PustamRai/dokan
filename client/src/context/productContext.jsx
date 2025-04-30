@@ -59,7 +59,7 @@ export const ProductProvider = ({ children }) => {
         }
       }
       fetchOrders()
-    }, [])
+    }, [orderData])
 
   // login state after refresh
   useEffect(() => {

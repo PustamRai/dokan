@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-gray-50 py-6 mt-10 max-w-[1400px] mx-auto">
+    <footer className="bg-gray-50 py-6 max-w-[1400px] mx-auto">
       <div className="container mx-auto px-4 flex flex-col sm:flex-row md:px-32 justify-between items-center text-sm">
         <p>&copy; {new Date().getFullYear()} Dokan. All rights reserved.</p>
         
