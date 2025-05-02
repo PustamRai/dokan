@@ -20,7 +20,7 @@ const SearchResult = () => {
   // console.log('search: ', search)
 
   const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(search.toLowerCase())
+    product.slug.toLowerCase().includes(search.toLowerCase())
   );
 
   return (

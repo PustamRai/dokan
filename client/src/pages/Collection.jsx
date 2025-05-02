@@ -62,7 +62,7 @@ function Collection() {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row gap-4 pt-10 ">
+      <div className="flex flex-col md:flex-row gap-4 pt-10 mt-[98px]">
         <MetaData
           title="Explore Collections - Dokan"
           description="Explore a wide range of collections at Dokan, handpicked for you."
@@ -109,11 +109,11 @@ function Collection() {
               <p className="flex gap-2">
                 <input
                   type="checkbox"
-                  value={"Kids"}
+                  value={"Laptops"}
                   className="w-3"
                   onChange={toggleCategory}
                 />{" "}
-                Kids
+                Laptops
               </p>
             </div>
           </div>
@@ -136,11 +136,12 @@ function Collection() {
             </select>
           </div>
 
-          {/* mapping product */}
-          <div className="text-center py-10 text-gray-500 font-semibold text-lg">
+          {/* <div className="text-center py-2 text-gray-500 font-semibold text-lg">
             {products.length === 0 ? "No products found" : ""}
-          </div>
+          </div> */}
 
+
+          {/* mapping product */}
           {loading ? (
             <LoadingSkeleton count={4} />
           ) : (

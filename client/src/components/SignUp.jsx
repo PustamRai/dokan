@@ -24,7 +24,7 @@ function SignUp() {
 
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-4">
+    <div className="flex justify-center items-center min-h-screen p-4 mx-auto">
       <div className="max-w-md w-full px-6 py-8 rounded-lg">
         <h2 className="text-2xl font-normal text-center text-gray-800 mb-6 font-serif">
           Sign Up<span className="mx-2">—</span>

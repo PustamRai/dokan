@@ -31,7 +31,7 @@ function Cart() {
   };
 
   return (
-    <div className="min-h-screen py-8">
+    <div className="min-h-screen py-8 mt-[98px]">
       <div className="container mx-auto px-4">
         <h1 className="text-2xl md:text-3xl font-bold mb-8 text-center">
           Your Shopping Cart
