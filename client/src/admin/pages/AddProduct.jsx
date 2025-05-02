@@ -20,7 +20,7 @@ const AddProduct = () => {
 
   const [previewImage, setPreviewImage] = useState("");
 
-  const categoryOptions = ["Men", "Women", "Kids", "Accessories"];
+  const categoryOptions = ["Men", "Women", "Laptops"];
 
   const sizeOptions = ["S", "M", "L", "XL", "XXL"];
 
