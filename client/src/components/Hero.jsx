@@ -22,7 +22,7 @@ export default function Hero() {
   ];
 
   return (
-    <div className="bg-gray-100 overflow-hidden">
+    <div className="bg-gray-100 overflow-hidden mt-[98px]">
       <MetaData
         title="Dokan - Best Online Store"
         description="Shop the latest fashion, electronics, and accessories online at Dokan. Best deals and fast delivery!"
@@ -85,7 +85,7 @@ export default function Hero() {
               <img
                 src={PushImg}
                 alt="Featured product"
-                className="w-full h-[300px] lg:h-[600px] object-cover"
+                className="w-full h-[300px] lg:h-[700px] object-cover"
               />
 
               {/* Product quick info */}

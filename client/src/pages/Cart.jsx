@@ -56,7 +56,7 @@ function Cart() {
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
                 <div className="hidden md:grid md:grid-cols-12 text-sm font-medium text-gray-500 bg-gray-50 p-4">
                   <div className="col-span-6">Product</div>
-                  <div className="col-span-2 text-center">Quantity</div>
+                  {/* <div className="col-span-2 text-center">Quantity</div> */}
                   <div className="col-span-2 text-center">Price</div>
                   <div className="col-span-2 text-center">Total</div>
                 </div>
@@ -98,7 +98,7 @@ function Cart() {
                       </div>
 
                       {/* Quantity */}
-                      <div className="col-span-1 md:col-span-2 flex justify-between md:justify-center items-center mb-4 md:mb-0">
+                      {/* <div className="col-span-1 md:col-span-2 flex justify-between md:justify-center items-center mb-4 md:mb-0">
                         <span className="md:hidden text-gray-500">
                           Quantity:
                         </span>
@@ -120,7 +120,7 @@ function Cart() {
                             <FaPlus size={16} />
                           </button>
                         </div>
-                      </div>
+                      </div> */}
 
                       {/* Price */}
                       <div className="col-span-1 md:col-span-2 flex justify-between md:justify-center mb-4 md:mb-0">
