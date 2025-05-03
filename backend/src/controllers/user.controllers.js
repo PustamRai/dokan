@@ -68,10 +68,10 @@ export const registerUser = async (req, res) => {
         message: "Please enter a valid email",
       });
     }
-    if (password.length < 3) {
+    if (password.length < 8) {
       return res.status(401).json({
         success: false,
-        message: "Password length should be greater than 3",
+        message: "Password length should be greater than 8",
       });
     }
 
