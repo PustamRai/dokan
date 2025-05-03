@@ -40,7 +40,7 @@ function SingleProduct() {
   };
 
   return productData ? (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
+    <div className="container mx-auto px-4 py-8 max-w-6xl mt-[98px]">
       <MetaData
         title={`${productData.name} - shop now | Dokan`}
         description={`${productData.description.substring(0, 150)}`}
