@@ -21,7 +21,7 @@ function Footer() {
         <p className="text-[7px]">
           Designed & Developed by:{" "}
           <a
-            href="https://www.linkedin.com/in/pustamrai"
+            href="https://pustamrai.com.np"
             target="_blank"
             rel="noopener noreferrer"
           >
